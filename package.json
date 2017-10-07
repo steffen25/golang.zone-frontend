@@ -20,6 +20,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.13",
     "redux": "^3.7.2",
+    "redux-auth-wrapper": "^2.0.1",
     "redux-devtools-extension": "^2.13.2",
     "redux-form": "^7.0.4",
     "redux-router": "^2.1.2",
@@ -48,7 +49,9 @@
   "scripts": {
     "lint": "eslint src",
     "precommit": "lint-staged",
-    "start": "react-scripts start",
+    "start:dev": "NODE_ENV=development react-scripts start",
+    "start:prod": "NODE_ENV=production react-scripts start",
+    "start:test": "NODE_ENV=test react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
