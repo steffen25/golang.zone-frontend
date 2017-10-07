@@ -17,6 +17,8 @@ import { store } from "./reducers/rootReducer";
 //  };
 //  store.dispatch(userLoggedIn(user));
 // }
+// eslint-disable-next-line
+console.log(process.env.APP_BASE_API)
 
 ReactDOM.render(
   <BrowserRouter>
