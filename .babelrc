@@ -1,0 +1,29 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+        }
+      }
+    ],
+    "stage-0",
+    "stage-2",
+    "stage-3",
+    ["es2016"]
+  ],
+  "plugins": [
+    "transform-runtime",
+    "transform-regenerator",
+    "syntax-async-functions",
+    "transform-async-to-generator"
+  ],
+  "env": {
+    "test": {
+      "presets": ["env", "stage-2"],
+      "plugins": ["istanbul"]
+    }
+  }
+}
