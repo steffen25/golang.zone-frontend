@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { api } from "../Api";
+import { api } from "@/Api";
 import moment from "moment";
 
 export default {

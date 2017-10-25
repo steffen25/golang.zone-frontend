@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6 title">
-        Sorry, we couldn't find what you were looking for :-(<br>
+        {{ msg }}<br>
         <router-link :to="{ path: '/' }">Go back to the homepage</router-link>
       </div>
       <div class="col-md-3"></div>
@@ -16,7 +16,7 @@ export default {
   name: "PageNotFound",
   data() {
     return {
-      msg: "Page not found."
+      msg: "Sorry, we couldn't find what you were looking for :-("
     };
   }
 };

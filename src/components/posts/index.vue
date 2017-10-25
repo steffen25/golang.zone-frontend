@@ -1,76 +1,72 @@
 <template>
-  <b-container>
-    <div class="row">
-      <div class="col-md-8">
-        <div v-if="loading" class="">Loading...</div>
-        <div v-if="posts && posts.length" class="card mb-4"> <br>
-          <!-- img-src="https://placekitten.com/1000/300" img-alt="Image" img-top -->
-          <b-card v-for="post of posts" :key="post.id" 
-                  :title="post.title | capitalizeTitle" 
-                  footer-tag="footer" 
-                  tag="article" 
-                  class="mb-4">
-            <p class="card-text">
-              {{ post.body }}
-            </p>
-            <router-link :to="{ name: 'show.post', params: { slug: post.slug }}">
-              <b-button variant="primary">Read More →</b-button>
-            </router-link>
-            <span slot="footer" class="text-muted">
-                      Posted on {{ post.createdAt | postedOn }}
-                      by <a :href="post.author | atUsername">{{ post.author }}</a>
-                    </span>
-          </b-card>
+<div class="row">
+  <div class="col-md-8">
+    <div v-if="loading" class="">Loading...</div>
+    <div v-if="posts && posts.length" class="card mb-4"> <br>
+      <!-- img-src="https://placekitten.com/1000/300" img-alt="Image" img-top -->
+      <b-card v-for="post of posts" :key="post.id" 
+              :title="post.title | capitalizeTitle" 
+              footer-tag="footer" 
+              tag="article" 
+              class="mb-4">
+        <p v-html="$options.filters.test(post.body)" class="card-text">
+          {{ post.body }}
+        </p>
+        <router-link :to="{ name: 'show.post', params: { slug: post.slug }}">
+          <b-button variant="primary">Read More →</b-button>
+        </router-link>
+        <span slot="footer" class="text-muted">
+                  Posted on {{ post.createdAt | postedOn }}
+                  by <a :href="post.author | atUsername">{{ post.author }}</a>
+                </span>
+      </b-card>
+    </div>
+
+    <div class="mb-4">
+      <div class="row">
+        <div class="col-4">
+          <router-link :to="{ name: 'PostsPage', params: { page: pagination.currentPage - 1 }}">
+            <button class="btn btn-default paginateBtn float-left"
+                    :disabled="!pagination.prevPageUrl">
+                    « Previous
+            </button>
+          </router-link>
         </div>
-  
-        <div class="mb-4">
-          <div class="row">
-            <div class="col-4">
-              <router-link :to="{ name: 'PostsPage', params: { page: pagination.currentPage - 1 }}">
-                <button class="btn btn-default paginateBtn float-right"
-                        :disabled="!pagination.prevPageUrl">
-                        « Previous
-                </button>
-              </router-link>
-            </div>
-            <div class="col-4 text-center">
-              <span style="vertical-align: -webkit-baseline-middle">Page {{ pagination.currentPage }} of {{ pagination.lastPage }}</span>
-            </div>
-            <div class="col-4">
-              <router-link :to="{ name: 'PostsPage', params: {page: pagination.currentPage + 1}}">
-                <button class="btn btn-default paginateBtn float-right"
-                        :disabled="!pagination.nextPageUrl">
-                        Next »
-                </button>
-              </router-link>
-            </div>
-          </div>
+        <div class="col-4 text-center">
+          <span style="vertical-align: -webkit-baseline-middle">Page {{ pagination.currentPage }} of {{ pagination.lastPage }}</span>
         </div>
-  
+        <div class="col-4">
+          <router-link :to="{ name: 'PostsPage', params: {page: pagination.currentPage + 1}}">
+            <button class="btn btn-default paginateBtn float-right"
+                    :disabled="!pagination.nextPageUrl">
+                    Next »
+            </button>
+          </router-link>
+        </div>
       </div>
     </div>
-    <pre>{{ pagination }}</pre>
-  </b-container>
+
+  </div>
+</div>
 </template>
 
 <script>
-import { api } from "../Api";
+import { api } from "@/Api";
+import { isLoggedIn } from "@/service/authService";
 import moment from "moment";
 
 export default {
   name: "Posts",
+  props: ["perPage"],
   data() {
     return {
       pagination: {
-        to: 1,
-        from: 1,
-        perPage: 10, // posts per page
+        perPage: this.perPage ? this.perPage : 5, // posts per page
         currentPage: 1, // current page (it will be automatically updated when users clicks on some page number).
         total: 0 // total number of posts
       },
       offset: 4, // left and right padding from the pagination <span>,just change it to see effects
       posts: [],
-      errors: [],
       loading: false
     };
   },
@@ -106,7 +102,8 @@ export default {
         api
           .get("posts", {
             params: {
-              page: page
+              page: page,
+              perpage: this.pagination.perPage
             }
           })
           .then(response => {
@@ -141,6 +138,9 @@ export default {
   },
 
   filters: {
+    test(value) {
+      return value.substring(0, 200) + "...";
+    },
     postedOn(value) {
       let date = moment(value);
       let now = moment();

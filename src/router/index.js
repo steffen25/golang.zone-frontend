@@ -1,65 +1,61 @@
 import Vue from "vue";
 import Router from "vue-router";
-import BootstrapVue from "bootstrap-vue";
-import VueProgressBar from "vue-progressbar";
-import HelloWorld from "@/components/HelloWorld";
-import Posts from "@/components/Posts";
-import Post from "@/components/Post";
-import PageNotFound from "@/components/PageNotFound";
 
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
+import { requireAuth, isLoggedIn } from "../service/authService";
 
-let originalVueComponent = Vue.component;
-Vue.component = function(name, definition) {
-  if (
-    name === "bFormCheckboxGroup" ||
-    name === "bCheckboxGroup" ||
-    name === "bCheckGroup" ||
-    name === "bFormRadioGroup"
-  ) {
-    definition.components = { bFormCheckbox: definition.components[0] };
-  }
-  originalVueComponent.apply(this, [name, definition]);
-};
+// import our views
+import Home from "@/views/Home";
+import Login from "@/views/Login";
+import Register from "@/views/Register";
+import Logout from "@/views/Logout";
+import Posts from "@/views/Posts";
+import Post from "@/views/Post";
+import Dashboard from "@/views/Dashboard";
+import PageNotFound from "@/views/PageNotFound";
 
-Vue.use(Router);
-Vue.use(BootstrapVue);
-Vue.use(VueProgressBar, {
-  color: "#19B5FE",
-  failedColor: "#19B5FE",
-  height: "5px"
-});
-
-const scrollBehavior = to => {
-  const position = {};
-  if (to.hash) {
-    position.selector = to.hash;
-  }
-  if (to.matched.some(mm => mm.meta.scrollToTop)) {
-    position.x = 0;
-    position.y = 0;
-  }
-  return position;
-};
-
-export default new Router({
+const router = new Router({
   mode: "history",
   scrollBehavior,
   routes: [
     {
       path: "/",
-      name: "HomePage",
-      component: HelloWorld
+      name: "Home",
+      component: Home
+    },
+    {
+      path: "/dashboard",
+      name: "Dashboard",
+      component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/login",
+      name: "Login",
+      component: Login
+    },
+    {
+      path: "/register",
+      name: "Register",
+      component: Register
+    },
+    {
+      path: "/logout",
+      name: "Logout",
+      component: Logout
     },
     {
       path: "/posts/:page(\\d+)?",
       name: "PostsPage",
       component: Posts,
-      meta: { scrollToTop: true }
+      meta: {
+        scrollToTop: true,
+        requiresAuth: true
+      }
     },
     {
-      path: "post/:slug?",
+      path: "/post/:slug",
       name: "show.post",
       component: Post,
       meta: { scrollToTop: true }
@@ -75,3 +71,37 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  // check the meta field
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // check if the user is authenticated
+    if (!isLoggedIn()) {
+      // user isnt authenticated redirect to login
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath }
+      });
+    } else {
+      // the next method allow the user to continue to the router
+      next();
+    }
+  } else {
+    // the next method allow the user to continue to the router
+    next();
+  }
+});
+
+const scrollBehavior = to => {
+  const position = {};
+  if (to.hash) {
+    position.selector = to.hash;
+  }
+  if (to.matched.some(mm => mm.meta.scrollToTop)) {
+    position.x = 0;
+    position.y = 0;
+  }
+  return position;
+};
+
+export default router;

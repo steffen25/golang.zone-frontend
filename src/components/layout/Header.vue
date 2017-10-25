@@ -2,21 +2,56 @@
   <b-navbar toggleable="md" type="dark" variant="dark">
     <b-container>
       <b-nav-toggle target="nav_collapse"></b-nav-toggle>
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+      <b-navbar-brand href="#">GoLang.Zone</b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
 
-        <b-nav is-nav-bar>
+        <ul class="nav navbar-nav">
+          <li>
             <router-link active-class="active"
                          class="nav-link"
-                         :to="{ name: 'HomePage'}"
+                         :to="{ name: 'Home' }"
                          exact>Home
             </router-link>
-          <router-link active-class="active"
-                       class="nav-link"
-                       :to="{ name: 'PostsPage'}"
-                       exact>Posts
-          </router-link>
+          </li>
+          <li v-if="isLoggedIn">
+            <router-link active-class="active"
+                        class="nav-link"
+                        :to="{ name: 'PostsPage' }"
+                        exact>Posts
+            </router-link>
+          </li>
+        </ul>
+
+          <ul class="nav navbar-nav ml-auto">
+            <li v-if="!isLoggedIn">
+              <router-link active-class="active"
+                          class="nav-link"
+                          :to="{ name: 'Login' }"
+                          exact>Login
+              </router-link>
+            </li>
+            <li v-if="!isLoggedIn">
+              <router-link active-class="active"
+                          class="nav-link"
+                          :to="{ name: 'Register' }"
+                          exact>Register
+              </router-link>
+            </li>
+            <li v-if="isLoggedIn">
+              <router-link active-class="active"
+                          class="nav-link"
+                          :to="{ name: 'Logout' }"
+                          exact>Logout
+              </router-link>
+            </li>
+            <li v-if="isLoggedIn">
+                <div class="nav-link">
+                  <small v-bind:class="{ 'red': currentUser.admin }">{{ currentUser.name}}</small>
+                </div>
+            </li>
+          </ul>
+
         </b-nav>
 
       </b-collapse>
@@ -26,17 +61,35 @@
 </template>
 
 <script>
-  export default {
-    name: 'Header',
-    data () {
-      return {
+export default {
+  name: "Header",
 
-      }
+  data() {
+    return {};
+  },
+
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    },
+    currentUser: function() {
+      return this.$store.getters.getUser;
     }
+  },
+
+  created() {
+    console.log(this.currentUser);
+    this.$set(this.currentUser, id, obj);
+    console.log("are we logged in? ", this.isLoggedIn);
   }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.red {
+  color: #cb4335;
+  font-weight: bold;
+  font-size: 14px;
+}
 </style>
