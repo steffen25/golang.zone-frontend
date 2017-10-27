@@ -17,8 +17,15 @@
           <li v-if="isLoggedIn">
             <router-link active-class="active"
                         class="nav-link"
-                        :to="{ name: 'PostsPage' }"
+                        :to="{ name: 'index.posts' }"
                         exact>Posts
+            </router-link>
+          </li>
+          <li v-if="isLoggedIn && currentUser.admin">
+            <router-link active-class="active"
+                        class="nav-link"
+                        :to="{ name: 'create.post' }"
+                        exact>Create Post
             </router-link>
           </li>
         </ul>
@@ -78,8 +85,6 @@ export default {
   },
 
   created() {
-    console.log(this.currentUser);
-    this.$set(this.currentUser, id, obj);
     console.log("are we logged in? ", this.isLoggedIn);
   }
 };

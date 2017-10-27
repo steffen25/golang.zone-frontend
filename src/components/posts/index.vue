@@ -1,19 +1,25 @@
 <template>
 <div class="row">
   <div class="col-md-8">
-    <div v-if="loading" class="">Loading...</div>
-    <div v-if="posts && posts.length" class="card mb-4"> <br>
+    <br>
+    <div v-if="loading" class="text-center">Loading...</div>
+    <div v-if="posts && posts.length" class="card mb-4">
       <!-- img-src="https://placekitten.com/1000/300" img-alt="Image" img-top -->
-      <b-card v-for="post of posts" :key="post.id" 
-              :title="post.title | capitalizeTitle" 
+            <b-card v-for="post of posts" :key="post.id" 
               footer-tag="footer" 
               tag="article" 
               class="mb-4">
+                <div>
+                  <h4 class="card-title update-post">{{ post.title | capitalizeTitle }}</h4>
+                  <router-link v-if="currentUser.admin" :to="{ name: 'update.post', params: { slug: post.slug }}"> 
+                    <i @click="getCurrentPost(post)" class="fa fa-pencil fa-fw update-post-icon" aria-hidden="true"></i>
+                  </router-link>
+                </div>
         <p v-html="$options.filters.test(post.body)" class="card-text">
           {{ post.body }}
         </p>
         <router-link :to="{ name: 'show.post', params: { slug: post.slug }}">
-          <b-button variant="primary">Read More →</b-button>
+          <b-button @click="getCurrentPost(post)" variant="primary">Read More →</b-button>
         </router-link>
         <span slot="footer" class="text-muted">
                   Posted on {{ post.createdAt | postedOn }}
@@ -25,7 +31,7 @@
     <div class="mb-4">
       <div class="row">
         <div class="col-4">
-          <router-link :to="{ name: 'PostsPage', params: { page: pagination.currentPage - 1 }}">
+          <router-link :to="{ name: 'index.posts', params: { page: pagination.currentPage - 1 }}">
             <button class="btn btn-default paginateBtn float-left"
                     :disabled="!pagination.prevPageUrl">
                     « Previous
@@ -36,7 +42,7 @@
           <span style="vertical-align: -webkit-baseline-middle">Page {{ pagination.currentPage }} of {{ pagination.lastPage }}</span>
         </div>
         <div class="col-4">
-          <router-link :to="{ name: 'PostsPage', params: {page: pagination.currentPage + 1}}">
+          <router-link :to="{ name: 'index.posts', params: {page: pagination.currentPage + 1}}">
             <button class="btn btn-default paginateBtn float-right"
                     :disabled="!pagination.nextPageUrl">
                     Next »
@@ -81,9 +87,15 @@ export default {
     }
     this.getPosts(pageParam).then(() => {
       if (pageParam > this.pagination.lastPage) {
-        this.$router.push("/posts");
+        this.$router.push({ name: "index.posts" });
       }
     });
+  },
+
+  computed: {
+    currentUser: function() {
+      return this.$store.getters.getUser;
+    }
   },
 
   watch: {
@@ -95,6 +107,9 @@ export default {
   },
 
   methods: {
+    getCurrentPost(post) {
+      this.$store.dispatch("setPost", post);
+    },
     getPosts(page) {
       this.$Progress.start();
       this.loading = true;
@@ -174,6 +189,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.update-post {
+  display: inline-block;
+}
+.update-post-icon {
+  color: #c9c9c9;
+}
+.update-post-icon:hover {
+  color: #333;
+}
 .paginateBtn {
   cursor: pointer;
 }

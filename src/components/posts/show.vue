@@ -28,7 +28,8 @@ export default {
   },
 
   created() {
-    this.getPost(this.$route.params.slug);
+    let slug = this.$route.params.slug;
+    if (slug !== "created") this.getPost(this.$route.params.slug);
   },
 
   methods: {

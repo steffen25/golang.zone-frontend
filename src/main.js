@@ -6,6 +6,7 @@ import BootstrapVue from "bootstrap-vue";
 import VueProgressBar from "vue-progressbar";
 import Vue2Filters from "vue2-filters";
 import VeeValidate from "vee-validate";
+import Notifications from "vue-notification";
 
 import App from "./App";
 import router from "./router";
@@ -31,6 +32,7 @@ Vue.component = function(name, definition) {
 Vue.use(Router);
 Vue.use(BootstrapVue);
 Vue.use(Vue2Filters);
+Vue.use(Notifications);
 Vue.use(VeeValidate);
 Vue.use(VueProgressBar, {
   color: "#19B5FE",

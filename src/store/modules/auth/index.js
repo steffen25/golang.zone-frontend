@@ -15,6 +15,7 @@ import {
   login,
   isLoggedIn,
   isUser,
+  isAdmin,
   logout,
   register
 } from "../../../service/authService";
@@ -34,7 +35,7 @@ const mutations = {
   },
   LOGIN_SUCCESS(state, payload) {
     state.isLoggedIn = payload.isLoggedIn;
-    state.user = {};
+    state.user = payload.user;
   },
   LOGIN_FAILED(state, payload) {
     state.errors = payload;
@@ -47,6 +48,7 @@ const mutations = {
     state.isLoggedIn = payload.isLoading;
     state.user = payload.user;
     state.loading = payload.loading;
+    state.admin = payload.admin;
   },
   LOGOUT_FAILED(state, payload) {
     state.loading = payload;

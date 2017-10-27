@@ -100,10 +100,25 @@ export default {
           setRefreshToken(refreshToken);
           setUser(JSON.stringify(user));
           this.$router.push({ name: "Dashboard" });
+          this.$notify({
+            group: "auth",
+            type: "success",
+            title: "Login successful!",
+            text: "You have logged in successfully",
+            duration: 3000,
+            speed: 500
+          });
         })
         .catch(error => {
           this.$Progress.finish();
-          console.log("failed");
+          this.$notify({
+            group: "auth",
+            type: "error",
+            title: "Login failed!",
+            text: "The email address or password you entered is not valid",
+            duration: 3000,
+            speed: 500
+          });
         });
     }
   }

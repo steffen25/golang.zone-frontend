@@ -24,9 +24,25 @@ export default {
         clearAuthToken();
         clearUser();
         this.$router.push({ name: "Home" });
+        this.$notify({
+          group: "auth",
+          type: "success",
+          title: "Logout successful!",
+          text: "You have logged out successfully",
+          duration: 3000,
+          speed: 500
+        });
       })
       .catch(error => {
         this.$Progress.finish();
+        this.$notify({
+          group: "auth",
+          type: "error",
+          title: "Logout failed!",
+          text: "Logout failed please try again.",
+          duration: 3000,
+          speed: 500
+        });
       });
   }
 };

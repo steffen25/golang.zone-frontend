@@ -2,6 +2,8 @@
   <div id="app">
     <vue-progress-bar></vue-progress-bar>
     <Headr></Headr>
+    <notifications group="auth" />
+    <notifications group="post" />
     <transition name="fade">
       <router-view/>
     </transition>
@@ -23,6 +25,10 @@ export default {
 </script>
 
 <style>
+.vue-notification {
+  margin-top: 5px;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition-property: opacity;

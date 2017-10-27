@@ -1,29 +1,6 @@
 import decode from "jwt-decode";
-import axios from "axios";
 import Router from "vue-router";
-
-const api = axios.create({
-  baseURL: "https://golang.zone/api/v1/",
-  timeout: 15000,
-  withCredentials: false,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  }
-});
-
-api.interceptors.request.use(
-  config => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  }
-);
+import api from "./api";
 
 const authToken = "authToken";
 const refreshToken = "refreshToken";
@@ -84,7 +61,9 @@ export function requireAuth(to, from, next) {
 }
 
 export function getAuthToken() {
-  return localStorage.getItem(authToken);
+  const token = localStorage.getItem(authToken);
+  if (typeof token !== "string") return "";
+  return token;
 }
 
 export function clearAuthToken() {
@@ -116,6 +95,7 @@ function getTokenExpirationDate(encodedToken) {
 
 export function decodeToken() {
   const token = decode(getAuthToken());
+  console.log(token);
   if (!token) {
     return;
   }
@@ -125,4 +105,12 @@ export function decodeToken() {
 function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
   return expirationDate < new Date();
+}
+
+export function isAdmin() {
+  const token = decodeToken();
+  if (token.admin) {
+    return true;
+  }
+  return false;
 }

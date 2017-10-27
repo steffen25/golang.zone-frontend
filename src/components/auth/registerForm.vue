@@ -127,9 +127,25 @@ export default {
         .then(response => {
           this.$Progress.finish();
           this.$router.push({ name: "Login" });
+          this.$notify({
+            group: "auth",
+            type: "success",
+            title: "Register successful!",
+            text: "Register successfully you can now login.",
+            duration: 3000,
+            speed: 500
+          });
         })
         .catch(error => {
           this.$Progress.finish();
+          this.$notify({
+            group: "auth",
+            type: "error",
+            title: "Register failed!",
+            text: "Register failed please try again.",
+            duration: 3000,
+            speed: 500
+          });
         });
     }
   }
