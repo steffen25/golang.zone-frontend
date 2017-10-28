@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/steffen25/golang.zone-frontend/master/static/logo.svg" height="130">
+    <img src="static/logo.svg" height="130">
 </p>
 
 <p align="center">
@@ -11,6 +11,10 @@
 
   <a href="http://nodejs.org/download/">
   	<img src="https://img.shields.io/node/v/vuejs.svg?style=flat" alt="">
+  </a>
+
+  <a href="https://golang.zone">
+    <img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=golang.zone" >
   </a>
 
   <a href="LICENSE.md">

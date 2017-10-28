@@ -115,6 +115,12 @@ export function refreshTokenMinLeft() {
   return parseFloat(refreshTokenMinLeft.toFixed(2));
 }
 
+export function authTokenMinLeft() {
+  let authToken = decode(localStorage.getItem("authToken"));
+  let authTokenMinLeft = (authToken.exp - Date.now() / 1000) / 60;
+  return parseFloat(authTokenMinLeft.toFixed(2));
+}
+
 function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
   return expirationDate < new Date();

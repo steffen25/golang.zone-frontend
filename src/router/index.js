@@ -58,8 +58,7 @@ const router = new Router({
       name: "index.posts",
       component: Posts,
       meta: {
-        scrollToTop: true,
-        requiresAuth: true
+        scrollToTop: true
       }
     },
     {

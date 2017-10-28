@@ -3,7 +3,7 @@
     <b-container>
       <b-nav-toggle target="nav_collapse"></b-nav-toggle>
       <a href="/">
-        <img style="height: 50px;" class="mr-2" src="static/logo.svg" alt="Golang.Zone" />
+        <img style="height: 50px;" class="mr-2" src="/static/logo.svg" alt="Golang.Zone" />
       </a>
       <b-navbar-brand href="/">
         GoLang.Zone
@@ -51,17 +51,12 @@
               </router-link>
             </li>
             <li v-if="isLoggedIn">
-              <router-link active-class="active"
-                          class="nav-link"
-                          :to="{ name: 'Logout' }"
-                          exact>Logout
-              </router-link>
-            </li>
-            <li v-if="isLoggedIn">
-                <div class="nav-link">
-                    <a v-bind:class="{ 'red': isAdmin }" 
-                       :href="'@'+currentUser.id">{{ currentUser.name }}</a>
-                </div>
+              <b-nav-item-dropdown :text="currentUser.name" right>
+                <template slot="button-content">
+                  <b v-bind:class="{ 'red': isAdmin }">{{ currentUser.name }}</b>
+                </template>
+                <b-dropdown-item href="/logout">Logout</b-dropdown-item>
+              </b-nav-item-dropdown>
             </li>
           </ul>
 

@@ -6,7 +6,8 @@ import {
   setRefreshToken,
   setAccessToken,
   getTokenExpirationDate,
-  refreshTokenMinLeft
+  refreshTokenMinLeft,
+  authTokenMinLeft
 } from "@/service/authService";
 import store from "../store";
 
@@ -22,6 +23,30 @@ const api = axios.create({
 
 api.interceptors.request.use(
   config => {
+    console.log(config);
+    let authToken = authTokenMinLeft();
+    let refreshToken = refreshTokenMinLeft();
+    if (authToken > 0 && authToken <= 5) {
+      if (refreshToken > 0 && refreshToken <= 5) {
+        api
+          .get("auth/refresh", {
+            headers: {
+              Authorization: `Bearer ` + localStorage.getItem("refreshToken")
+            }
+          })
+          .then(({ data }) => {
+            if (getAuthToken) clearAuthToken();
+            setRefreshToken(data.data.refreshToken);
+            setAccessToken(data.data.accessToken);
+            return;
+          })
+          .catch(error => {
+            console.log(error);
+            return;
+          });
+      }
+    }
+
     const token = localStorage.getItem("authToken");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
