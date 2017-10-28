@@ -1,5 +1,5 @@
 <p align="center">
-<img src="static/logo.svg" height="130">
+    <img src="https://raw.githubusercontent.com/steffen25/golang.zone-frontend/master/static/logo.svg" height="130">
 </p>
 
 <p align="center">
