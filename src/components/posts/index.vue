@@ -33,7 +33,7 @@
         </router-link>
         <span slot="footer" class="text-muted">
                   Posted on {{ post.createdAt | postedOn }}
-                  by <a :href="post.author | atUsername">{{ post.author }}</a>
+                  by <a :href="post.userId | atUsername">{{ post.author }}</a>
                 </span>
       </b-card>
     </div>

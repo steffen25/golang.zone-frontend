@@ -54,7 +54,8 @@
             </li>
             <li v-if="isLoggedIn">
                 <div class="nav-link">
-                  <small v-bind:class="{ 'red': isAdmin }">{{ currentUser.name}}</small>
+                    <a v-bind:class="{ 'red': isAdmin }" 
+                       :href="'@'+currentUser.id">{{ currentUser.name }}</a>
                 </div>
             </li>
           </ul>
