@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-
-import { requireAuth, isLoggedIn } from "../service/authService";
+import Guard from "./guard";
 
 // import our views
 import Home from "@/views/Home";
@@ -29,10 +28,11 @@ const router = new Router({
       path: "/dashboard",
       name: "Dashboard",
       component: Dashboard,
-      meta: {
-        requiresAuth: true
-      }
+      beforeEnter: Guard.authUser
     },
+    /**
+     * Auth Routes
+     */
     {
       path: "/login",
       name: "Login",
@@ -53,6 +53,9 @@ const router = new Router({
       name: "Logout",
       component: Logout
     },
+    /**
+     * Posts
+     */
     {
       path: "/posts/:page(\\d+)?",
       name: "index.posts",
@@ -65,23 +68,22 @@ const router = new Router({
       path: "/post/create",
       name: "create.post",
       component: CreatePost,
-      meta: {
-        requiresAuth: true
-      }
+      beforeEnter: Guard.authAdmin
     },
     {
       path: "/post/:slug/update",
       name: "update.post",
       component: UpdatePost,
-      meta: {
-        requiresAuth: true
-      }
+      beforeEnter: Guard.authAdmin
     },
     {
       path: "/post/:slug?",
       name: "show.post",
       component: Post
     },
+    /**
+     * Error pages
+     */
     {
       path: "/page-not-found",
       name: "PageNotFound",
@@ -92,26 +94,6 @@ const router = new Router({
       redirect: "/page-not-found"
     }
   ]
-});
-
-router.beforeEach((to, from, next) => {
-  // check the meta field
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // check if the user is authenticated
-    if (!isLoggedIn()) {
-      // user isnt authenticated redirect to login
-      next({
-        path: "/login",
-        query: { redirect: to.fullPath }
-      });
-    } else {
-      // the next method allow the user to continue to the router
-      next();
-    }
-  } else {
-    // the next method allow the user to continue to the router
-    next();
-  }
 });
 
 const scrollBehavior = to => {
