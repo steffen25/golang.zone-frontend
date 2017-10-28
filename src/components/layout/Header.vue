@@ -2,7 +2,12 @@
   <b-navbar toggleable="md" type="dark" variant="dark">
     <b-container>
       <b-nav-toggle target="nav_collapse"></b-nav-toggle>
-      <b-navbar-brand href="#">GoLang.Zone</b-navbar-brand>
+      <a href="/">
+        <img style="height: 50px;" class="mr-2" src="static/logo.svg" alt="Golang.Zone" />
+      </a>
+      <b-navbar-brand href="/">
+        GoLang.Zone
+      </b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
 
