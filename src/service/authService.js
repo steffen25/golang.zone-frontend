@@ -36,8 +36,10 @@ export function isUser() {
 }
 
 export function isAdmin() {
-  let token = decode(localStorage.getItem("authToken"));
-  return token.admin;
+  let token = localStorage.getItem("authToken");
+  if (token === null || token === undefined) return false;
+  let tokenDecoded = decode(token);
+  return tokenDecoded.admin;
 }
 
 export function setUser(data) {
