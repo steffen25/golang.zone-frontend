@@ -18,12 +18,13 @@ import {
   isAdmin,
   logout,
   register
-} from "../../../service/authService";
+} from "@/service/authService";
 import router from "vue-router";
 
 const state = {
   isLoggedIn: isLoggedIn(),
   user: isUser(),
+  admin: isAdmin(),
   loading: false,
   errors: []
 };
@@ -36,6 +37,7 @@ const mutations = {
   LOGIN_SUCCESS(state, payload) {
     state.isLoggedIn = payload.isLoggedIn;
     state.user = payload.user;
+    state.admin = payload.admin;
   },
   LOGIN_FAILED(state, payload) {
     state.errors = payload;
@@ -108,7 +110,8 @@ const actions = {
           commit("LOGIN_REQUEST", false);
           commit("LOGIN_SUCCESS", {
             isLoggedIn: true,
-            user: user.data.data.user
+            user: user.data.data.user,
+            admin: user.data.data.user.admin
           });
           resolve(user);
         })
@@ -124,6 +127,7 @@ const actions = {
 const getters = {
   isLoggedIn: state => state.isLoggedIn,
   isLoading: state => state.loading,
+  isAdmin: state => state.admin,
   getUser: state => state.user
 };
 

@@ -7,3 +7,7 @@ export function getUserById(id) {
 export function getUserPosts(id) {
   return api.get(`users/${id}/posts`);
 }
+
+export function testAccess() {
+  return api.get("protected");
+}

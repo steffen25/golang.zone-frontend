@@ -1,16 +1,49 @@
 <template>
 <b-container>
+<div class="row">
+  <div class="col-md-8">
+    <br>
     <h1>{{ user.name }}</h1>
     <div><b>E-mail: </b>{{ user.email }}</div>
-    <small>User Object</small>
-    <pre>{{ user }}</pre>
-    <small>User Posts({{ posts.length }}) Object</small>
-    <pre>{{ posts }}</pre>
+    <div><b>Member since: </b>{{ user.createdAt | postedOn }}</div>
+    <div>{{ user.name }} got <b>({{ posts.length }})</b> Posts</div>
+    <br>
+    <div v-if="loading" class="text-center">Loading...</div>
+    <div v-if="posts && posts.length" class="card mb-4">
+      <!-- img-src="https://placekitten.com/1000/300" img-alt="Image" img-top -->
+            <b-card v-for="post of posts" :key="post.id" 
+              footer-tag="footer" 
+              tag="article" 
+              class="mb-4">
+                <div>
+                  <h4 class="card-title update-post">{{ post.title | capitalizeTitle }}</h4>
+                  <router-link v-if="isLoggedIn && currentUser.admin" :to="{ name: 'update.post', params: { slug: post.slug }}"> 
+                    <i @click="getCurrentPost(post)" class="fa fa-pencil fa-fw update-post-icon" aria-hidden="true"></i>
+                  </router-link>
+                </div>
+        <p v-html="$options.filters.test(post.body)" class="card-text">
+          {{ post.body }}
+        </p>
+        <router-link :to="{ name: 'show.post', params: { slug: post.slug }}">
+          <b-button @click="getCurrentPost(post)" variant="primary">Read More →</b-button>
+        </router-link>
+        <span slot="footer" class="text-muted">
+                  Posted on {{ post.createdAt | postedOn }}
+                  by <a :href="post.author | atUsername">{{ post.author }}</a>
+                </span>
+      </b-card>
+    </div>
+
+  </div>
+</div>
+
 </b-container>
 </template>
 
 <script>
-import { getUserById, getUserPosts } from "@/service/userService";
+import { getUserById, getUserPosts, testAccess } from "@/service/userService";
+import { getRefreshToken, refreshTokenMinLeft } from "@/service/authService";
+import moment from "moment";
 
 export default {
   data() {
@@ -27,7 +60,19 @@ export default {
     this.getUserPosts(userId);
   },
 
+  computed: {
+    currentUser: function() {
+      return this.$store.getters.getUser;
+    },
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    }
+  },
+
   methods: {
+    getCurrentPost(post) {
+      this.$store.dispatch("setPost", post);
+    },
     getUser(id) {
       this.$Progress.start();
       this.loading = true;
@@ -66,10 +111,51 @@ export default {
           });
       });
     }
+  },
+
+  filters: {
+    test(value) {
+      return value.substring(0, 200) + "...";
+    },
+    postedOn(value) {
+      let date = moment(value);
+      let now = moment();
+      let diffInDays = date.from(now);
+      let diffInYears = now.diff(date, "years");
+      if (diffInYears !== 0) {
+        return date.format("MMMM Do YYYY");
+      }
+      if (diffInDays === "a day ago") {
+        return "Yesterday";
+      } else if (diffInDays === "2 days ago") {
+        return "Day Before Yesterday";
+      }
+      return date.format("MMMM Do");
+    },
+    capitalizeTitle(value) {
+      return value
+        .toLowerCase()
+        .split(" ")
+        .map(function(word) {
+          return word[0].toUpperCase() + word.substr(1);
+        })
+        .join(" ");
+    },
+    atUsername(value) {
+      return "@" + value;
+    }
   }
 };
 </script>
 
 <style scoped>
-
+.update-post {
+  display: inline-block;
+}
+.update-post-icon {
+  color: #c9c9c9;
+}
+.update-post-icon:hover {
+  color: #333;
+}
 </style>

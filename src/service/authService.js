@@ -31,8 +31,13 @@ export function isLoggedIn() {
 }
 
 export function isUser() {
-  let user = JSON.parse(localStorage.getItem(userKey));
+  let user = JSON.parse(localStorage.getItem("user"));
   return user;
+}
+
+export function isAdmin() {
+  let token = decode(localStorage.getItem("authToken"));
+  return token.admin;
 }
 
 export function setUser(data) {
@@ -61,8 +66,7 @@ export function requireAuth(to, from, next) {
 }
 
 export function getAuthToken() {
-  const token = localStorage.getItem(authToken);
-  if (typeof token !== "string") return "";
+  const token = localStorage.getItem("authToken");
   return token;
 }
 
@@ -81,6 +85,10 @@ export function setRefreshToken(token) {
   localStorage.setItem(refreshToken, token);
 }
 
+export function getRefreshToken(token) {
+  localStorage.getItem(refreshToken);
+}
+
 function getTokenExpirationDate(encodedToken) {
   const token = decode(encodedToken);
   if (!token.exp) {
@@ -95,22 +103,19 @@ function getTokenExpirationDate(encodedToken) {
 
 export function decodeToken() {
   const token = decode(getAuthToken());
-  console.log(token);
   if (!token) {
     return;
   }
   return token;
 }
 
+export function refreshTokenMinLeft() {
+  let refreshToken = decode(localStorage.getItem("refreshToken"));
+  let refreshTokenMinLeft = (refreshToken.exp - Date.now() / 1000) / 60;
+  return parseFloat(refreshTokenMinLeft.toFixed(2));
+}
+
 function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
   return expirationDate < new Date();
-}
-
-export function isAdmin() {
-  const token = decodeToken();
-  if (token.admin) {
-    return true;
-  }
-  return false;
 }

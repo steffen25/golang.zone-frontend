@@ -1,4 +1,14 @@
 import axios from "axios";
+import {
+  getAuthToken,
+  getRefreshToken,
+  clearAuthToken,
+  setRefreshToken,
+  setAccessToken,
+  getTokenExpirationDate,
+  refreshTokenMinLeft
+} from "@/service/authService";
+import store from "../store";
 
 const api = axios.create({
   baseURL: "https://golang.zone/api/v1/",
@@ -20,6 +30,36 @@ api.interceptors.request.use(
   },
   error => {
     return Promise.reject(error);
+  }
+);
+
+api.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response.status === 401) {
+      let token = refreshTokenMinLeft();
+      if (token <= 0) window.location = "/login";
+      if (token > 0 && token <= 5) {
+        api
+          .get("auth/refresh", {
+            headers: {
+              Authorization: `Bearer ` + localStorage.getItem("refreshToken")
+            }
+          })
+          .then(({ data }) => {
+            if (getAuthToken) clearAuthToken();
+            setRefreshToken(data.data.refreshToken);
+            setAccessToken(data.data.accessToken);
+            return;
+          })
+          .catch(error => {
+            console.log(error);
+            return;
+          });
+      }
+    }
   }
 );
 

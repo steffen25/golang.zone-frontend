@@ -3,15 +3,25 @@
   <div class="col-md-8">
     <br>
     <div v-if="loading" class="text-center">Loading...</div>
-    <div v-if="posts && posts.length" class="card mb-4">
+    <div class="row">
+    <div class="col-lg-2 ml-auto">
+      <b-form-select size="lg" 
+                     v-model="selected"
+                     :options="options" 
+                     @change="console.log(2)"
+                     class="mb-3"
+                     ></b-form-select>
+    </div>
+    </div>
+    <div v-if="posts && posts.length" class="mb-4">
       <!-- img-src="https://placekitten.com/1000/300" img-alt="Image" img-top -->
             <b-card v-for="post of posts" :key="post.id" 
               footer-tag="footer" 
               tag="article" 
-              class="mb-4">
+              class="mb-4 card">
                 <div>
                   <h4 class="card-title update-post">{{ post.title | capitalizeTitle }}</h4>
-                  <router-link v-if="currentUser.admin" :to="{ name: 'update.post', params: { slug: post.slug }}"> 
+                  <router-link v-if="isLoggedIn && currentUser.admin" :to="{ name: 'update.post', params: { slug: post.slug }}"> 
                     <i @click="getCurrentPost(post)" class="fa fa-pencil fa-fw update-post-icon" aria-hidden="true"></i>
                   </router-link>
                 </div>
@@ -67,13 +77,20 @@ export default {
   data() {
     return {
       pagination: {
-        perPage: this.perPage ? this.perPage : 5, // posts per page
         currentPage: 1, // current page (it will be automatically updated when users clicks on some page number).
         total: 0 // total number of posts
       },
       offset: 4, // left and right padding from the pagination <span>,just change it to see effects
       posts: [],
-      loading: false
+      loading: false,
+      selected: 10,
+      options: [
+        { value: 10, text: "10" },
+        { value: 25, text: "25" },
+        { value: 50, text: "50" },
+        { value: 75, text: "75" },
+        { value: 100, text: "100" }
+      ]
     };
   },
 
@@ -93,12 +110,18 @@ export default {
   },
 
   computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    },
     currentUser: function() {
       return this.$store.getters.getUser;
     }
   },
 
   watch: {
+    selected: function(val, oldVal) {
+      this.getPosts(this.pagination.currentPage, val);
+    },
     $route(to, from) {
       if (from.params.page !== to.params.page) {
         return this.getPosts(to.params.page);
@@ -110,7 +133,14 @@ export default {
     getCurrentPost(post) {
       this.$store.dispatch("setPost", post);
     },
-    getPosts(page) {
+    hej(value) {
+      if (value === "") {
+        value = null;
+      }
+      console.log(value);
+      this.$emit("input", value);
+    },
+    getPosts(page, perPage = 10) {
       this.$Progress.start();
       this.loading = true;
       return new Promise((resolve, reject) => {
@@ -118,7 +148,7 @@ export default {
           .get("posts", {
             params: {
               page: page,
-              perpage: this.pagination.perPage
+              perpage: perPage
             }
           })
           .then(response => {

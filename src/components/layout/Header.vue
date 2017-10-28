@@ -14,14 +14,14 @@
                          exact>Home
             </router-link>
           </li>
-          <li v-if="isLoggedIn">
+          <li>
             <router-link active-class="active"
                         class="nav-link"
                         :to="{ name: 'index.posts' }"
                         exact>Posts
             </router-link>
           </li>
-          <li v-if="isLoggedIn && currentUser.admin">
+          <li v-if="isLoggedIn && isAdmin">
             <router-link active-class="active"
                         class="nav-link"
                         :to="{ name: 'create.post' }"
@@ -54,7 +54,7 @@
             </li>
             <li v-if="isLoggedIn">
                 <div class="nav-link">
-                  <small v-bind:class="{ 'red': currentUser.admin }">{{ currentUser.name}}</small>
+                  <small v-bind:class="{ 'red': isAdmin }">{{ currentUser.name}}</small>
                 </div>
             </li>
           </ul>
@@ -81,6 +81,9 @@ export default {
     },
     currentUser: function() {
       return this.$store.getters.getUser;
+    },
+    isAdmin: function() {
+      return this.$store.getters.isAdmin;
     }
   },
 
