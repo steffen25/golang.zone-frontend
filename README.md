@@ -25,7 +25,8 @@
 
 # golang.zone-frontend
 
-Frontend for [golang.zone](https://golang.zone/)
+Frontend for [golang.zone-frontend](https://golang.zone/)
+Backend for [golang.zone-backend](https://github.com/steffen25/golang.zone)
 
 ## Build Setup
 
