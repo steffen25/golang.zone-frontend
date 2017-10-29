@@ -29,7 +29,8 @@
         </router-link>
         <span slot="footer" class="text-muted">
                   Posted on {{ post.createdAt | postedOn }}
-                  by <a :href="post.author | atUsername">{{ post.author }}</a>
+                by <router-link :to="{ path: '/@' + post.userId }">{{ post.author }}
+                </router-link>
                 </span>
       </b-card>
     </div>

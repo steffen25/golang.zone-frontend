@@ -31,8 +31,9 @@
           <b-button @click="getCurrentPost(post)" variant="primary">Read More →</b-button>
         </router-link>
         <span slot="footer" class="text-muted">
-                  Posted on {{ post.createdAt | postedOn }}
-                  by <a :href="post.userId | atUsername">{{ post.author }}</a>
+                Posted on {{ post.createdAt | postedOn }}
+                by <router-link :to="{ path: '/@' + post.userId }">{{ post.author }}
+                </router-link>
                 </span>
       </b-card>
     </div>
