@@ -25,7 +25,7 @@ export default {
     next();
   },
   authAdmin(to, from, next) {
-    if (store.getters.isLoggedIn && !store.getters.isAdmin) {
+    if (!store.getters.isLoggedIn || !store.getters.isAdmin) {
       next("/");
     }
     next();

@@ -39,7 +39,7 @@ const router = new Router({
       component: Login
     },
     {
-      path: "/@:name",
+      path: "/@:id",
       name: "Profile",
       component: Profile
     },

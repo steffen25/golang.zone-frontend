@@ -8,7 +8,6 @@
       <b-form-select size="lg" 
                      v-model="selected"
                      :options="options" 
-                     @change="console.log(2)"
                      class="mb-3"
                      ></b-form-select>
     </div>
@@ -137,7 +136,6 @@ export default {
       if (value === "") {
         value = null;
       }
-      console.log(value);
       this.$emit("input", value);
     },
     getPosts(page, perPage = 10) {

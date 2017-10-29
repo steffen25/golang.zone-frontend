@@ -14,6 +14,7 @@
                           data-vv-as="full name"
                           v-model.trim="credentials.name"
                           v-validate="{ required: true, min: 2 }"
+                          data-vv-delay="1000"
                           :state="!errors.first('full_name') ? null : 'invalid'"
                           placeholder="Enter full name"
                           :disabled="isLoading"
@@ -30,6 +31,7 @@
                           type="email"
                           v-model.trim="credentials.email"
                           v-validate="{ required: true, email: true }"
+                          data-vv-delay="1000"
                           :state="!errors.first('email') ? null : 'invalid'"
                           placeholder="Enter email"
                           :disabled="isLoading"
@@ -46,6 +48,7 @@
                           type="password"
                           v-model.trim="credentials.password"
                           v-validate="{ required: true, min: 6}"
+                          data-vv-delay="1000"
                           :state="!errors.first('password') ? null : 'invalid'"
                           autocomplete="off"
                           placeholder="Enter password"
@@ -64,6 +67,7 @@
                           data-vv-as="confirm password"
                           v-validate="{ required: true, min: 6, confirmed: 'password'}"
                           :state="!errors.first('confirm_password') ? null : 'invalid'"
+                          data-vv-delay="1000"
                           autocomplete="off"
                           placeholder="Confirm password"
                           :disabled="isLoading"
@@ -116,7 +120,6 @@ export default {
 
   methods: {
     onSubmit() {
-      console.log(this.credentials);
       this.$Progress.start();
       this.$store
         .dispatch("registerUser", {

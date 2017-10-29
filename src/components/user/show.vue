@@ -1,12 +1,12 @@
 <template>
 <b-container>
 <div class="row">
-  <div class="col-md-8">
+  <div v-if="user" class="col-md-8">
     <br>
     <h1>{{ user.name }}</h1>
     <div><b>E-mail: </b>{{ user.email }}</div>
     <div><b>Member since: </b>{{ user.createdAt | postedOn }}</div>
-    <div>{{ user.name }} got <b>({{ posts.length }})</b> Posts</div>
+    <div v-if="posts">{{ user.name }} got <b>({{ posts.length }})</b> Posts</div>
     <br>
     <div v-if="loading" class="text-center">Loading...</div>
     <div v-if="posts && posts.length" class="card mb-4">
@@ -55,7 +55,7 @@ export default {
   },
 
   created() {
-    let userId = this.$route.params.name;
+    let userId = this.$route.params.id;
     this.getUser(userId);
     this.getUserPosts(userId);
   },

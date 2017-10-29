@@ -3,12 +3,17 @@
         <div class="row">
             <div class="col-md-8"><br>
                 <h1>{{ post.title }}</h1>
-                <p>{{ post.body }}</p>
+                  <router-link v-if="isLoggedIn && currentUser.admin" 
+                               :to="{ name: 'update.post', params: { slug: post.slug }}"> 
+                    <i @click="getCurrentPost(post)" class="fa fa-pencil fa-fw update-post-icon" aria-hidden="true"></i>
+                  </router-link>
+                <p v-html="post.body" class="card-text">
+                  {{ post.body }}
+                </p>
                 <small>Posted on {{ post.createdAt | postedOn }}
-                      by <a :href="post.author | atUsername">{{ post.author }}</a>
+                by <router-link :to="{ path: '/@' + post.userId }">{{ post.author }}
+                </router-link>
                 </small>
-                <br><br>
-                <pre>{{ post }}</pre>
             </div>
         </div>
     </b-container>
@@ -29,10 +34,22 @@ export default {
 
   created() {
     let slug = this.$route.params.slug;
-    if (slug !== "created") this.getPost(this.$route.params.slug);
+    this.getPost(this.$route.params.slug);
+  },
+
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    },
+    currentUser: function() {
+      return this.$store.getters.getUser;
+    }
   },
 
   methods: {
+    getCurrentPost(post) {
+      this.$store.dispatch("setPost", post);
+    },
     getPost(slug) {
       this.$Progress.start();
       this.loading = true;
@@ -79,5 +96,13 @@ export default {
 </script>
 
 <style scoped>
-
+.update-post {
+  display: inline-block;
+}
+.update-post-icon {
+  color: #c9c9c9;
+}
+.update-post-icon:hover {
+  color: #333;
+}
 </style>

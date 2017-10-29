@@ -14,6 +14,7 @@
                           type="text"
                           v-model.trim="post.title"
                           v-validate="{ required: true }"
+                          data-vv-delay="1000"
                           :state="!errors.first('title') ? null : 'invalid'"
                           placeholder="Enter post title"
                           :disabled="isLoading"
@@ -24,17 +25,11 @@
                       :feedback="errors.first('body')"
                       :state="!errors.first('body') ? null : 'invalid'">
           <b-input-group size="lg">
-            <b-form-textarea name="body"
-                             ref="body"
-                             type="text"
-                             :rows="10"
-                             :max-rows="6"
-                             v-model.trim="post.body"
-                             v-validate="{ required: true, min: 10 }"
-                             :state="!errors.first('body') ? null : 'invalid'"
-                             placeholder="Enter post body"
-                             :disabled="isLoading"
-            ></b-form-textarea>
+            <vue-editor v-model="post.body"
+                        v-validate="{ required: true, min: 10 }"
+                        data-vv-delay="1000"
+                        :disabled="isLoading"
+            ></vue-editor>
           </b-input-group>
         </b-form-group>
           <b-button type="submit" variant="primary" 
@@ -50,11 +45,14 @@
 
 <script>
 import { isAdmin } from "@/service/authService";
-
+import { VueEditor } from "vue2-editor";
 import moment from "moment";
 
 export default {
   name: "PostUpdate",
+  components: {
+    VueEditor
+  },
   data() {
     return {
       post: {
@@ -83,7 +81,6 @@ export default {
 
   methods: {
     onSubmit() {
-      console.log(this.post);
       this.$Progress.start();
       this.$store
         .dispatch("updatePost", {
@@ -93,7 +90,6 @@ export default {
         })
         .then(response => {
           this.$Progress.finish();
-          console.log(response);
           this.$router.push({
             name: "show.post",
             params: { slug: response.data.data.slug }

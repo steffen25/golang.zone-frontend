@@ -86,10 +86,6 @@ export default {
     isAdmin: function() {
       return this.$store.getters.isAdmin;
     }
-  },
-
-  created() {
-    console.log("are we logged in? ", this.isLoggedIn);
   }
 };
 </script>

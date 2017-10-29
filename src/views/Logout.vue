@@ -14,7 +14,6 @@ import {
 
 export default {
   beforeCreate() {
-    console.log("logout");
     this.$Progress.start();
     this.$store
       .dispatch("logoutUser")

@@ -23,7 +23,6 @@ const api = axios.create({
 
 api.interceptors.request.use(
   config => {
-    console.log(config);
     // let authToken = authTokenMinLeft();
     // let refreshToken = refreshTokenMinLeft();
     // if (authToken > 0 && authToken <= 5) {
