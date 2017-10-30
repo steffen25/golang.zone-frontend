@@ -43,10 +43,10 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
-import { isAdmin } from "@/service/authService";
+import { VueEditor } from "vue2-editor"
+import { isAdmin } from "@/service/authService"
 
-import moment from "moment";
+import moment from "moment"
 
 export default {
   name: "PostCreate",
@@ -59,39 +59,39 @@ export default {
         title: "",
         body: ""
       }
-    };
+    }
   },
 
   created() {
-    if (!isAdmin) this.$router.push({ name: "index.posts" });
+    if (!isAdmin) this.$router.push({ name: "index.posts" })
   },
 
   computed: {
     isLoading: function() {
-      return this.$store.getters.isLoading;
+      return this.$store.getters.isLoading
     },
     isFormValid: function() {
-      return this.post.title != "" && this.post.body != "";
+      return this.post.title != "" && this.post.body != ""
     },
     isAdmin: function() {
-      return isAdmin();
+      return isAdmin()
     }
   },
 
   methods: {
     onSubmit() {
-      this.$Progress.start();
+      this.$Progress.start()
       this.$store
         .dispatch("createPost", {
           title: this.post.title,
           body: this.post.body
         })
         .then(response => {
-          this.$Progress.finish();
+          this.$Progress.finish()
           this.$router.push({
             name: "show.post",
             params: { slug: response.data.data.slug }
-          });
+          })
           this.$notify({
             group: "auth",
             type: "success",
@@ -99,10 +99,10 @@ export default {
             text: "Post was successfully created.",
             duration: 3000,
             speed: 500
-          });
+          })
         })
         .catch(error => {
-          this.$Progress.finish();
+          this.$Progress.finish()
           this.$notify({
             group: "auth",
             type: "error",
@@ -110,11 +110,11 @@ export default {
             text: "Could not create post.",
             duration: 3000,
             speed: 500
-          });
-        });
+          })
+        })
     }
   }
-};
+}
 </script>
 
 <style scoped>

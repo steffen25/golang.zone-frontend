@@ -8,6 +8,10 @@
 import indexPosts from "@/components/posts/index";
 
 export default {
+  metaInfo: {
+    title: "Posts",
+    titleTemplate: '%s - Golang.Zone'
+  },
   components: {
     indexPosts
   }

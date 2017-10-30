@@ -14,6 +14,10 @@
 <script>
 export default {
   name: "PageNotFound",
+  metaInfo: {
+    title: "Page not found",
+    titleTemplate: '%s - Golang.Zone'
+  },
   data() {
     return {
       msg: "Sorry, we couldn't find what you were looking for :-("

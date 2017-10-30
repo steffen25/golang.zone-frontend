@@ -13,6 +13,10 @@ import {
 } from "@/service/authService";
 
 export default {
+  metaInfo: {
+    title: "Logout",
+    titleTemplate: '%s - Golang.Zone'
+  },
   beforeCreate() {
     this.$Progress.start();
     this.$store

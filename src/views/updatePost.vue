@@ -9,6 +9,10 @@
 import updatePost from "@/components/posts/update";
 
 export default {
+  metaInfo: {
+    title: "Edit Post",
+    titleTemplate: '%s - Golang.Zone'
+  },
   components: {
     updatePost
   }

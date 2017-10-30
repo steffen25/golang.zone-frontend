@@ -1,53 +1,42 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from "vue";
-import Router from "vue-router";
-import BootstrapVue from "bootstrap-vue";
-import VueProgressBar from "vue-progressbar";
-import Vue2Filters from "vue2-filters";
-import VeeValidate from "vee-validate";
-import Notifications from "vue-notification";
+import { Vue, router, store } from './boot/core'
+import App from './App'
 
-import App from "./App";
-import router from "./router";
-import store from "./store";
+// Import Helpers for filters
+import {
+	count,
+	atUsername,
+	limitText,
+	capitalizeTitle,
+	postDate
+} from './filters'
 
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
-import "font-awesome/css/font-awesome.css";
-import "vueditor/dist/style/vueditor.min.css";
+let originalVueComponent = Vue.component
+Vue.component = function (name, definition) {
+	if (
+		name === 'bFormCheckboxGroup' ||
+    name === 'bCheckboxGroup' ||
+    name === 'bCheckGroup' ||
+    name === 'bFormRadioGroup'
+	) {
+		definition.components = { bFormCheckbox: definition.components[0] }
+	}
+	originalVueComponent.apply(this, [name, definition])
+}
 
-let originalVueComponent = Vue.component;
-Vue.component = function(name, definition) {
-  if (
-    name === "bFormCheckboxGroup" ||
-    name === "bCheckboxGroup" ||
-    name === "bCheckGroup" ||
-    name === "bFormRadioGroup"
-  ) {
-    definition.components = { bFormCheckbox: definition.components[0] };
-  }
-  originalVueComponent.apply(this, [name, definition]);
-};
+// Register helper items
+Vue.filter('count', count)
+Vue.filter('atUsername', atUsername)
+Vue.filter('limitText', limitText)
+Vue.filter('capitalizeTitle', capitalizeTitle)
+Vue.filter('postDate', postDate)
 
-Vue.use(Router);
-Vue.use(BootstrapVue);
-Vue.use(Vue2Filters);
-Vue.use(Notifications);
-Vue.use(VeeValidate);
-Vue.use(VueProgressBar, {
-  color: "#19B5FE",
-  failedColor: "#19B5FE",
-  height: "5px"
-});
-
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: "#app",
-  router,
-  store,
-  template: "<App/>",
-  components: { App }
-});
+	el: '#app',
+	router,
+	store,
+	template: '<App/>',
+	components: { App }
+})

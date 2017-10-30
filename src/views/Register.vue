@@ -9,6 +9,10 @@
 import registerForm from "@/components/auth/registerForm";
 
 export default {
+  metaInfo: {
+    title: "Register",
+    titleTemplate: '%s - Golang.Zone'
+  },
   components: {
     registerForm
   }

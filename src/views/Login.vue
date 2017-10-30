@@ -9,6 +9,10 @@
 import LoginForm from "@/components/auth/loginForm";
 
 export default {
+  metaInfo: {
+    title: "Login",
+    titleTemplate: '%s - Golang.Zone'
+  },
   components: {
     LoginForm
   }

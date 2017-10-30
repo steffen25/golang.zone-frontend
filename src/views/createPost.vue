@@ -9,6 +9,10 @@
 import createPost from "@/components/posts/create";
 
 export default {
+  metaInfo: {
+    title: "Create post",
+    titleTemplate: '%s - Golang.Zone'
+  },
   components: {
     createPost
   }

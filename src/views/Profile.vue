@@ -8,6 +8,10 @@
 import showProfile from "@/components/user/show";
 
 export default {
+  metaInfo: {
+    title: "Profile",
+    titleTemplate: '%s - Golang.Zone'
+  },
   components: {
     showProfile
   }

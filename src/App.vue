@@ -4,6 +4,7 @@
     <Headr></Headr>
     <notifications group="auth" />
     <notifications group="post" />
+    <notifications group="editor" />
     <transition name="fade">
       <router-view/>
     </transition>
@@ -12,8 +13,8 @@
 </template>
 
 <script>
-import Headr from "./components/layout/Header";
-import Footr from "./components/layout/Footer";
+import Headr from "./components/layout/Header"
+import Footr from "./components/layout/Footer"
 
 export default {
   name: "App",
@@ -21,7 +22,7 @@ export default {
     Headr,
     Footr
   }
-};
+}
 </script>
 
 <style>

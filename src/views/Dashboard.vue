@@ -5,7 +5,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  metaInfo: {
+    title: "Dashboard",
+    titleTemplate: '%s - Golang.Zone'
+  },
+};
 </script>
 
 <style scoped>

@@ -12,7 +12,7 @@
             <b-form-input name="title"
                           ref="title"
                           type="text"
-                          v-model.trim="post.title"
+                          v-model="post.title"
                           v-validate="{ required: true }"
                           data-vv-delay="1000"
                           :state="!errors.first('title') ? null : 'invalid'"
@@ -26,8 +26,8 @@
                       :state="!errors.first('body') ? null : 'invalid'">
           <b-input-group size="lg">
             <vue-editor v-model="post.body"
-                        v-validate="{ required: true, min: 10 }"
-                        data-vv-delay="1000"
+                        useCustomImageHandler
+                        @imageAdded="handleImageAdded"
                         :disabled="isLoading"
             ></vue-editor>
           </b-input-group>
@@ -44,9 +44,11 @@
 </template>
 
 <script>
-import { isAdmin } from "@/service/authService";
-import { VueEditor } from "vue2-editor";
-import moment from "moment";
+import { isAdmin } from "@/service/authService"
+import { VueEditor } from "vue2-editor"
+import FormData from "form-data"
+import api from "../../service/api"
+import moment from "moment"
 
 export default {
   name: "PostUpdate",
@@ -60,28 +62,42 @@ export default {
         title: this.$store.state.posts.post.title,
         body: this.$store.state.posts.post.body
       }
-    };
+    }
   },
 
   created() {
-    if (!isAdmin) this.$router.push({ name: "index.posts" });
+    if (!isAdmin) this.$router.push({ name: "index.posts" })
   },
 
   computed: {
     isLoading: function() {
-      return this.$store.getters.isLoading;
+      return this.$store.getters.isLoading
     },
     isFormValid: function() {
-      return this.post.title != "" && this.post.body != "";
+      return this.post.title != "" && this.post.body != ""
     },
     isAdmin: function() {
-      return isAdmin();
+      return isAdmin()
     }
   },
 
   methods: {
+    handleImageAdded: (file, Editor, cursorLocation) => {
+      let formData = new FormData()
+      formData.append("image", file)
+      api
+        .post("images/upload", formData)
+        .then(result => {
+          let url = result.data.data.imageUrl
+          Editor.insertEmbed(cursorLocation, "image", url)
+        })
+        .catch(error => {
+          // TODO: error handling
+          console.log(error)
+        })
+    },
     onSubmit() {
-      this.$Progress.start();
+      this.$Progress.start()
       this.$store
         .dispatch("updatePost", {
           id: this.post.id,
@@ -89,11 +105,11 @@ export default {
           body: this.post.body
         })
         .then(response => {
-          this.$Progress.finish();
+          this.$Progress.finish()
           this.$router.push({
             name: "show.post",
             params: { slug: response.data.data.slug }
-          });
+          })
           this.$notify({
             group: "auth",
             type: "success",
@@ -101,10 +117,10 @@ export default {
             text: "Post was successfully updated.",
             duration: 3000,
             speed: 500
-          });
+          })
         })
         .catch(error => {
-          this.$Progress.finish();
+          this.$Progress.finish()
           this.$notify({
             group: "auth",
             type: "error",
@@ -112,11 +128,11 @@ export default {
             text: "Could not update post.",
             duration: 3000,
             speed: 500
-          });
-        });
+          })
+        })
     }
   }
-};
+}
 </script>
 
 <style scoped>
