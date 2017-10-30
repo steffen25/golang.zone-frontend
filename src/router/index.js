@@ -1,5 +1,6 @@
 // Route Guard/Middleware
 import Guard from './guard'
+import multiguard from 'vue-router-multiguard'
 
 // import our views
 import Home from '@/views/Home'
@@ -21,13 +22,14 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		component: Home
+		component: Home,
+		beforeEnter: Guard.checkAuthToken
 	},
 	{
 		path: '/dashboard',
 		name: 'Dashboard',
 		component: Dashboard,
-		beforeEnter: Guard.authUser
+		beforeEnter: multiguard([Guard.authUser, Guard.checkAuthToken])
 	},
 	{
 		path: '/login',
@@ -37,7 +39,8 @@ const routes = [
 	{
 		path: '/@:id',
 		name: 'Profile',
-		component: Profile
+		component: Profile,
+		beforeEnter: Guard.checkAuthToken
 	},
 	{
 		path: '/register',
@@ -53,6 +56,7 @@ const routes = [
 		path: '/posts/:page(\\d+)?',
 		name: 'index.posts',
 		component: Posts,
+		beforeEnter: Guard.checkAuthToken,
 		meta: {
 			scrollToTop: true
 		}
@@ -61,23 +65,25 @@ const routes = [
 		path: '/post/create',
 		name: 'create.post',
 		component: CreatePost,
-		beforeEnter: Guard.authAdmin
+		beforeEnter: multiguard([Guard.authAdmin, Guard.checkAuthToken])
 	},
 	{
 		path: '/post/:slug/update',
 		name: 'update.post',
 		component: UpdatePost,
-		beforeEnter: Guard.authAdmin
+		beforeEnter: multiguard([Guard.authAdmin, Guard.checkAuthToken])
 	},
 	{
 		path: '/post/:slug?',
 		name: 'show.post',
-		component: Post
+		component: Post,
+		beforeEnter: Guard.checkAuthToken
 	},
 	{
 		path: '/page-not-found',
 		name: 'PageNotFound',
-		component: PageNotFound
+		component: PageNotFound,
+		beforeEnter: Guard.checkAuthToken
 	},
 	{
 		path: '*',

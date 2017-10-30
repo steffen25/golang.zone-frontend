@@ -10,19 +10,6 @@ import {
 	postDate
 } from './filters'
 
-let originalVueComponent = Vue.component
-Vue.component = function (name, definition) {
-	if (
-		name === 'bFormCheckboxGroup' ||
-    name === 'bCheckboxGroup' ||
-    name === 'bCheckGroup' ||
-    name === 'bFormRadioGroup'
-	) {
-		definition.components = { bFormCheckbox: definition.components[0] }
-	}
-	originalVueComponent.apply(this, [name, definition])
-}
-
 // Register helper items
 Vue.filter('count', count)
 Vue.filter('atUsername', atUsername)

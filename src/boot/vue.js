@@ -12,6 +12,22 @@ import Notifications from 'vue-notification'
 import Meta from 'vue-meta'
 
 /**
+ * Temp fix for bootstrap-vue
+ */
+let originalVueComponent = Vue.component
+Vue.component = function (name, definition) {
+	if (
+		name === 'bFormCheckboxGroup' ||
+    name === 'bCheckboxGroup' ||
+    name === 'bCheckGroup' ||
+    name === 'bFormRadioGroup'
+	) {
+		definition.components = { bFormCheckbox: definition.components[0] }
+	}
+	originalVueComponent.apply(this, [name, definition])
+}
+
+/**
  * Register helper plugins
  */
 const plugins = [

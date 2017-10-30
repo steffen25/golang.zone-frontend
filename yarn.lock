@@ -4165,10 +4165,6 @@ q@^1.1.2:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.0.tgz#dd01bac9d06d30e6f219aecb8253ee9ebdc308f1"
 
-q@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
-
 qs@6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
@@ -5109,6 +5105,10 @@ vue-progressbar@^0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/vue-progressbar/-/vue-progressbar-0.7.3.tgz#28ca98fa1afa603644a443f18c7c45fe5d290144"
 
+vue-router-multiguard@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-router-multiguard/-/vue-router-multiguard-1.0.1.tgz#c887011425fdbf23f17b1cac577d76ee39e324fc"
+
 vue-router@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
@@ -5154,14 +5154,6 @@ vueditor@^0.2.8:
     twemoji "^2.3.0"
     vue "^2.0.5"
     vuex "^2.0.0"
-
-vuex-action-logger@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/vuex-action-logger/-/vuex-action-logger-0.1.3.tgz#2403eb0a2b610a4d13cf81fd80a53168989aabe0"
-
-vuex-router-sync@2:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/vuex-router-sync/-/vuex-router-sync-2.1.1.tgz#604da1346dc0668140ee552d54ceab067711142e"
 
 vuex@^2.0.0:
   version "2.5.0"
