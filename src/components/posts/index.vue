@@ -5,22 +5,22 @@
     <div v-if="loading" class="text-center">Loading...</div>
     <div class="row">
     <div class="col-lg-2 ml-auto">
-      <b-form-select size="lg" 
+      <b-form-select size="lg"
                      v-model="selected"
-                     :options="options" 
+                     :options="options"
                      class="mb-3"
                      ></b-form-select>
     </div>
     </div>
     <div v-if="posts && posts.length" class="mb-4">
       <!-- img-src="https://placekitten.com/1000/300" img-alt="Image" img-top -->
-            <b-card v-for="post of posts" :key="post.id" 
-              footer-tag="footer" 
-              tag="article" 
+            <b-card v-for="post of posts" :key="post.id"
+              footer-tag="footer"
+              tag="article"
               class="mb-4 card">
                 <div>
                   <h4 class="card-title update-post">{{ post.title | capitalizeTitle }}</h4>
-                  <router-link v-if="isLoggedIn && currentUser.admin" :to="{ name: 'update.post', params: { slug: post.slug }}"> 
+                  <router-link v-if="isLoggedIn && currentUser.admin" :to="{ name: 'update.post', params: { slug: post.slug }}">
                     <i @click="getCurrentPost(post)" class="fa fa-pencil fa-fw update-post-icon" aria-hidden="true"></i>
                   </router-link>
                 </div>
@@ -67,153 +67,146 @@
 </template>
 
 <script>
-import { api } from "@/Api";
-import { isLoggedIn } from "@/service/authService";
-import moment from "moment";
+import { api } from '@/Api'
+import moment from 'moment'
 
 export default {
-  name: "Posts",
-  props: ["perPage"],
-  data() {
-    return {
-      pagination: {
-        currentPage: 1, // current page (it will be automatically updated when users clicks on some page number).
-        total: 0 // total number of posts
-      },
-      offset: 4, // left and right padding from the pagination <span>,just change it to see effects
-      posts: [],
-      loading: false,
-      selected: 10,
-      options: [
-        { value: 10, text: "10" },
-        { value: 25, text: "25" },
-        { value: 50, text: "50" },
-        { value: 75, text: "75" },
-        { value: 100, text: "100" }
-      ]
-    };
-  },
+	name: 'Posts',
+	props: ['perPage'],
+	data () {
+		return {
+			pagination: {
+				currentPage: 1, // current page (it will be automatically updated when users clicks on some page number).
+				total: 0 // total number of posts
+			},
+			offset: 4, // left and right padding from the pagination <span>,just change it to see effects
+			posts: [],
+			loading: false,
+			selected: 10,
+			options: [
+				{ value: 10, text: '10' },
+				{ value: 25, text: '25' },
+				{ value: 50, text: '50' },
+				{ value: 75, text: '75' },
+				{ value: 100, text: '100' }
+			]
+		}
+	},
 
-  created() {
-    const page = parseInt(this.$route.params.page, 10);
-    var pageParam = null;
-    if (this.$route.params.page === undefined) {
-      pageParam = 1;
-    } else {
-      pageParam = page;
-    }
-    this.getPosts(pageParam).then(() => {
-      if (pageParam > this.pagination.lastPage) {
-        this.$router.push({ name: "index.posts" });
-      }
-    });
-  },
+	created () {
+		const page = parseInt(this.$route.params.page, 10)
+		var pageParam = null
+		if (this.$route.params.page === undefined) {
+			pageParam = 1
+		} else {
+			pageParam = page
+		}
+		this.getPosts(pageParam).then(() => {
+			if (pageParam > this.pagination.lastPage) {
+				this.$router.push({ name: 'index.posts' })
+			}
+		})
+	},
 
-  computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
-    },
-    currentUser: function() {
-      return this.$store.getters.getUser;
-    }
-  },
+	computed: {
+		isLoggedIn: function () {
+			return this.$store.getters.isLoggedIn
+		},
+		currentUser: function () {
+			return this.$store.getters.getUser
+		}
+	},
 
-  watch: {
-    selected: function(val, oldVal) {
-      this.getPosts(this.pagination.currentPage, val);
-    },
-    $route(to, from) {
-      if (from.params.page !== to.params.page) {
-        return this.getPosts(to.params.page);
-      }
-    }
-  },
+	watch: {
+		selected: function (val, oldVal) {
+			this.getPosts(this.pagination.currentPage, val)
+		},
+		$route (to, from) {
+			if (from.params.page !== to.params.page) {
+				return this.getPosts(to.params.page)
+			}
+		}
+	},
 
-  methods: {
-    getCurrentPost(post) {
-      this.$store.dispatch("setPost", post);
-    },
-    hej(value) {
-      if (value === "") {
-        value = null;
-      }
-      this.$emit("input", value);
-    },
-    getPosts(page, perPage = 10) {
-      this.$Progress.start();
-      this.loading = true;
-      return new Promise((resolve, reject) => {
-        api
-          .get("posts", {
-            params: {
-              page: page,
-              perpage: perPage
-            }
-          })
-          .then(response => {
-            this.$Progress.finish();
-            this.loading = false;
-            this.pagination = response.data.pagination;
-            this.posts = response.data.data;
-            resolve();
-          })
-          .catch(error => {
-            this.$Progress.finish();
-            this.loading = false;
-            this.$router.replace("/page-not-found");
-            reject(error);
-          });
-      });
-    },
-    nextPage() {
-      const page = parseInt(this.$route.params.page, 10);
-      if (page < this.pagination.total / this.pagination.perPage) {
-        const nextPage = page + 1;
-        this.$router.push(`/posts/${nextPage}`);
-      }
-    },
-    previousPage() {
-      const page = parseInt(this.$route.params.page, 10);
-      if (page > 1) {
-        const previousPage = page - 1;
-        this.$router.push(`/posts/${previousPage}`);
-      }
-    }
-  },
+	methods: {
+		getCurrentPost (post) {
+			this.$store.dispatch('setPost', post)
+		},
+		getPosts (page, perPage = 10) {
+			this.$Progress.start()
+			this.loading = true
+			return new Promise((resolve, reject) => {
+				api
+					.get('posts', {
+						params: {
+							page: page,
+							perpage: perPage
+						}
+					})
+					.then(response => {
+						this.$Progress.finish()
+						this.loading = false
+						this.pagination = response.data.pagination
+						this.posts = response.data.data
+						resolve()
+					})
+					.catch(error => {
+						this.$Progress.finish()
+						this.loading = false
+						this.$router.replace('/page-not-found')
+						reject(error)
+					})
+			})
+		},
+		nextPage () {
+			const page = parseInt(this.$route.params.page, 10)
+			if (page < this.pagination.total / this.pagination.perPage) {
+				const nextPage = page + 1
+				this.$router.push(`/posts/${nextPage}`)
+			}
+		},
+		previousPage () {
+			const page = parseInt(this.$route.params.page, 10)
+			if (page > 1) {
+				const previousPage = page - 1
+				this.$router.push(`/posts/${previousPage}`)
+			}
+		}
+	},
 
-  filters: {
-    test(value) {
-      return value.substring(0, 200) + "...";
-    },
-    postedOn(value) {
-      let date = moment(value);
-      let now = moment();
-      let diffInDays = date.from(now);
-      let diffInYears = now.diff(date, "years");
-      if (diffInYears !== 0) {
-        return date.format("MMMM Do YYYY");
-      }
-      if (diffInDays === "a day ago") {
-        return "Yesterday";
-      } else if (diffInDays === "2 days ago") {
-        return "Day Before Yesterday";
-      }
-      return date.format("MMMM Do");
-    },
-    capitalizeTitle(value) {
-      return value
-        .toLowerCase()
-        .split(" ")
-        .map(function(word) {
-          return word[0].toUpperCase() + word.substr(1);
-        })
-        .join(" ");
-    },
-    atUsername(value) {
-      return "@" + value;
-    }
-  }
-};
+	filters: {
+		test (value) {
+			return value.substring(0, 200) + '...'
+		},
+		postedOn (value) {
+			let date = moment(value)
+			let now = moment()
+			let diffInDays = date.from(now)
+			let diffInYears = now.diff(date, 'years')
+			if (diffInYears !== 0) {
+				return date.format('MMMM Do YYYY')
+			}
+			if (diffInDays === 'a day ago') {
+				return 'Yesterday'
+			} else if (diffInDays === '2 days ago') {
+				return 'Day Before Yesterday'
+			}
+			return date.format('MMMM Do')
+		},
+		capitalizeTitle (value) {
+			return value
+				.toLowerCase()
+				.split(' ')
+				.map(function (word) {
+					return word[0].toUpperCase() + word.substr(1)
+				})
+				.join(' ')
+		},
+		atUsername (value) {
+			return '@' + value
+		}
+	}
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

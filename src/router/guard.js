@@ -36,7 +36,6 @@ export default {
 	checkAuthToken (to, from, next) {
 		let authToken = localStorage.getItem('authToken')
 		let refreshToken = localStorage.getItem('refreshToken')
-		console.log('authTokenMinLeft -> ', authTokenMinLeft())
 		// check if no access token but a valid refresh token
 		if (!authToken && refreshToken && refreshTokenMinLeft() > 0) {
 			refresh

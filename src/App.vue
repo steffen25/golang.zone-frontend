@@ -13,15 +13,15 @@
 </template>
 
 <script>
-import Headr from "./components/layout/Header"
-import Footr from "./components/layout/Footer"
+import Headr from './components/layout/Header'
+import Footr from './components/layout/Footer'
 
 export default {
-  name: "App",
-  components: {
-    Headr,
-    Footr
-  }
+	name: 'App',
+	components: {
+		Headr,
+		Footr
+	}
 }
 </script>
 
