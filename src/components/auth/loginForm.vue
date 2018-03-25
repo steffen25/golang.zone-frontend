@@ -3,11 +3,13 @@
     <div class="col-md-6">
         <h1>Login</h1>
         <b-form @submit.prevent="onSubmit">
-        <b-form-group label="E-mail:" label-for="email" 
+        <b-form-group label="E-mail:" label-for="email"
                       :feedback="errors.first('email')"
                       :state="!errors.first('email') ? null : 'invalid'">
           <b-input-group size="lg">
-             <i class="input-group-addon fa fa-envelope" aria-hidden="true"></i>
+            <div class="input-group-prepend">
+              <i class="input-group-text fa fa-envelope" aria-hidden="true"></i>
+            </div>
             <b-form-input name="email"
                           ref="email"
                           type="email"
@@ -24,7 +26,9 @@
                       :feedback="errors.first('password')"
                       :state="!errors.first('password') ? null : 'invalid'">
           <b-input-group size="lg">
-             <i class="input-group-addon fa fa-lock" aria-hidden="true"></i>
+            <div class="input-group-prepend">
+              <i class="input-group-text fa fa-lock" aria-hidden="true"></i>
+            </div>
             <b-form-input name="password"
                           ref="password"
                           type="password"
@@ -38,7 +42,7 @@
             ></b-form-input>
           </b-input-group>
         </b-form-group>
-          <b-button type="submit" variant="primary" 
+          <b-button type="submit" variant="primary"
                     :disabled="isLoading || errors.any() || !isFormValid">
             <span v-if="isLoading"><i class="fa fa-spinner fa-spin fa-fw"></i> Loading...</span>
             <span v-if="!isLoading">Login</span>
