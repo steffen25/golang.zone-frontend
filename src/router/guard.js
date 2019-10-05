@@ -46,7 +46,6 @@ export default {
 					setAccessToken(data.data.accessToken)
 				})
 				.catch(error => {
-					console.log(error)
 					clearAuthToken()
 				})
 		}
@@ -59,7 +58,6 @@ export default {
 					setAccessToken(data.data.accessToken)
 				})
 				.catch(error => {
-					console.log(error)
 					clearAuthToken()
 				})
 		}

@@ -3,10 +3,11 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>Create Post</h1>
+
         <b-form @submit.prevent="onSubmit">
         <b-form-group label="Title:" label-for="title"
                       :feedback="errors.first('title')"
-                      :state="!errors.first('title') ? null : 'invalid'">
+                      :state="!errors.first('title') ? null : false">
           <b-input-group size="lg">
             <div class="input-group-prepend">
               <i class="input-group-text fa fa-header" aria-hidden="true"></i>
@@ -17,7 +18,7 @@
                           v-model.trim="post.title"
                           v-validate="{ required: true, min: 3 }"
                           data-vv-delay="1000"
-                          :state="!errors.first('title') ? null : 'invalid'"
+                          :state="!errors.first('title') ? null : false"
                           placeholder="Enter post title"
                           :disabled="isLoading"
             ></b-form-input>
@@ -25,7 +26,7 @@
         </b-form-group>
         <b-form-group label="Body:" label-for="body"
                       :feedback="errors.first('body')"
-                      :state="!errors.first('body') ? null : 'invalid'"
+                      :state="!errors.first('body') ? null : false"
         >
             <vue-editor v-model="post.body"
                         v-validate="{ required: true, min: 10, max: 1000 }"

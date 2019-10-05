@@ -5,7 +5,7 @@
         <b-form @submit.prevent="onSubmit">
         <b-form-group label="E-mail:" label-for="email"
                       :feedback="errors.first('email')"
-                      :state="!errors.first('email') ? null : 'invalid'">
+                      :state="!errors.first('email') ? null : false">
           <b-input-group size="lg">
             <div class="input-group-prepend">
               <i class="input-group-text fa fa-envelope" aria-hidden="true"></i>
@@ -16,7 +16,7 @@
                           v-model.trim="credentials.email"
                           v-validate="{ required: true, email: true }"
                           data-vv-delay="1000"
-                          :state="!errors.first('email') ? null : 'invalid'"
+                          :state="!errors.first('email') ? null : false"
                           placeholder="Enter email"
                           :disabled="isLoading"
             ></b-form-input>
@@ -24,7 +24,7 @@
         </b-form-group>
         <b-form-group label="Password:" label-for="password"
                       :feedback="errors.first('password')"
-                      :state="!errors.first('password') ? null : 'invalid'">
+                      :state="!errors.first('password') ? null : false">
           <b-input-group size="lg">
             <div class="input-group-prepend">
               <i class="input-group-text fa fa-lock" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
                           v-model.trim="credentials.password"
                           v-validate="{ required: true, min: 6}"
                           data-vv-delay="1000"
-                          :state="!errors.first('password') ? null : 'invalid'"
+                          :state="!errors.first('password') ? null : false"
                           autocomplete="off"
                           placeholder="Enter password"
                           :disabled="isLoading"

@@ -3,7 +3,7 @@
     <b-container>
       <b-nav-toggle target="nav_collapse"></b-nav-toggle>
       <a href="/">
-        <img style="height: 50px;" class="mr-2" src="/static/logo.svg" alt="Golang.Zone" />
+        <img style="height: 50px;" class="mr-2" src="images/logo.svg" alt="Golang.Zone" />
       </a>
       <b-navbar-brand href="/">
         GoLang.Zone

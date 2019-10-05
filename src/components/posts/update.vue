@@ -94,10 +94,6 @@ export default {
 					let url = result.data.data.imageUrl
 					Editor.insertEmbed(cursorLocation, 'image', url)
 				})
-				.catch(error => {
-					// TODO: error handling
-					console.log(error)
-				})
 		},
 		onSubmit () {
 			this.$Progress.start()
