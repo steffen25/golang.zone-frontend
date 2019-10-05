@@ -1,15 +1,11 @@
 import axios from 'axios'
 import {
 	getAuthToken,
-	getRefreshToken,
 	clearAuthToken,
 	setRefreshToken,
 	setAccessToken,
-	getTokenExpirationDate,
 	refreshTokenMinLeft,
-	authTokenMinLeft
 } from '@/service/authService'
-import store from '../store'
 
 const api = axios.create({
 	baseURL: 'https://golang.zone/api/v1/',

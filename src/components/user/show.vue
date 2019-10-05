@@ -11,13 +11,13 @@
     <div v-if="loading" class="text-center">Loading...</div>
     <div v-if="posts && posts.length" class="card mb-4">
       <!-- img-src="https://placekitten.com/1000/300" img-alt="Image" img-top -->
-            <b-card v-for="post of posts" :key="post.id" 
-              footer-tag="footer" 
-              tag="article" 
+            <b-card v-for="post of posts" :key="post.id"
+              footer-tag="footer"
+              tag="article"
               class="mb-4">
                 <div>
                   <h4 class="card-title update-post">{{ post.title | capitalizeTitle }}</h4>
-                  <router-link v-if="isLoggedIn && currentUser.admin" :to="{ name: 'update.post', params: { slug: post.slug }}"> 
+                  <router-link v-if="isLoggedIn && currentUser.admin" :to="{ name: 'update.post', params: { slug: post.slug }}">
                     <i @click="getCurrentPost(post)" class="fa fa-pencil fa-fw update-post-icon" aria-hidden="true"></i>
                   </router-link>
                 </div>
@@ -42,8 +42,7 @@
 </template>
 
 <script>
-import { getUserById, getUserPosts, testAccess } from "@/service/userService";
-import { getRefreshToken, refreshTokenMinLeft } from "@/service/authService";
+import { getUserById, getUserPosts } from "@/service/userService";
 import moment from "moment";
 
 export default {

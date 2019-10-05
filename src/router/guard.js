@@ -45,9 +45,7 @@ export default {
 					setRefreshToken(data.data.refreshToken)
 					setAccessToken(data.data.accessToken)
 				})
-				.catch(error => {
-					clearAuthToken()
-				})
+				.catch(() => clearAuthToken())
 		}
 		if (authToken && authTokenMinLeft() > 0 && authTokenMinLeft() <= 5) {
 			refresh
@@ -57,9 +55,7 @@ export default {
 					setRefreshToken(data.data.refreshToken)
 					setAccessToken(data.data.accessToken)
 				})
-				.catch(error => {
-					clearAuthToken()
-				})
+				.catch(() => clearAuthToken())
 		}
 		if (!refreshToken || refreshTokenMinLeft() <= 0) clearAuthToken()
 		next()

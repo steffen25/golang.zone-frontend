@@ -36,7 +36,7 @@ export default {
           speed: 500
         });
       })
-      .catch(error => {
+      .catch(() => {
         this.$Progress.finish();
         this.$notify({
           group: "auth",

@@ -3,17 +3,17 @@ import Guard from './guard'
 import multiguard from 'vue-router-multiguard'
 
 // import our views
-import Home from '@/views/Home'
-import Login from '@/views/Login'
-import Register from '@/views/Register'
-import Logout from '@/views/Logout'
-import Posts from '@/views/Posts'
-import CreatePost from '@/views/createPost'
-import UpdatePost from '@/views/updatePost'
-import Profile from '@/views/Profile'
-import Post from '@/views/Post'
-import Dashboard from '@/views/Dashboard'
-import PageNotFound from '@/views/PageNotFound'
+const Home = () => import('@/views/Home')
+const Login = () => import('@/views/Login')
+const Register = () => import('@/views/Register')
+const Logout = () => import('@/views/Logout')
+const Posts = () => import('@/views/Posts')
+const CreatePost = () => import('@/views/createPost')
+const UpdatePost = () => import('@/views/updatePost')
+const Profile = () => import('@/views/Profile')
+const Post = () => import('@/views/Post')
+const Dashboard = () => import('@/views/Dashboard')
+const PageNotFound = () => import('@/views/PageNotFound')
 
 /**
  * Routes

@@ -1,5 +1,4 @@
 import decode from 'jwt-decode'
-import Router from 'vue-router'
 import api from './api'
 
 const authToken = 'authToken'
@@ -87,7 +86,7 @@ export function setRefreshToken (token) {
 	localStorage.setItem(refreshToken, token)
 }
 
-export function getRefreshToken (token) {
+export function getRefreshToken () {
 	localStorage.getItem(refreshToken)
 }
 

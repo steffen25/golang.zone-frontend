@@ -1,17 +1,4 @@
 import {
-	LOGIN_REQUEST,
-	LOGIN_FAILED,
-	LOGIN_SUCCESS,
-	LOGOUT_REQUEST,
-	LOGOUT_FAILED,
-	LOGOUT_SUCCESS,
-	REGISTER_REQUEST,
-	REGISTER_FAILED,
-	REGISTER_SUCCESS,
-	SET_AUTH_TOKEN,
-	SET_USER
-} from './mutation-types'
-import {
 	login,
 	isLoggedIn,
 	isUser,
@@ -19,7 +6,6 @@ import {
 	logout,
 	register
 } from '@/service/authService'
-import router from 'vue-router'
 
 const state = {
 	isLoggedIn: isLoggedIn(),
@@ -72,22 +58,23 @@ const actions = {
 		commit('REGISTER_REQUEST', true)
 		return new Promise((resolve, reject) => {
 			register(payload)
-				.then(user => {
+				.then(() => {
 					commit('REGISTER_REQUEST', false)
 					commit('REGISTER_SUCCESS', false)
 					resolve()
 				})
-				.catch(error => {
+				.catch(() => {
 					commit('REGISTER_REQUEST', false)
 					reject()
 				})
 		})
 	},
+  // eslint-disable-next-line no-unused-vars
 	logoutUser ({ commit }, payload) {
 		commit('LOGOUT_REQUEST', true)
 		return new Promise((resolve, reject) => {
 			logout()
-				.then(user => {
+				.then(() => {
 					commit('LOGOUT_REQUEST', false)
 					commit('LOGOUT_SUCCESS', {
 						isLoggedIn: false,
@@ -96,7 +83,7 @@ const actions = {
 					})
 					resolve()
 				})
-				.catch(error => {
+				.catch(() => {
 					commit('LOGOUT_REQUEST', false)
 					reject()
 				})
