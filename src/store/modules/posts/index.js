@@ -1,12 +1,3 @@
-import {
-	POST_CREATE_REQUEST,
-	POST_CREATE_FALIED,
-	POST_CREATE_SUCCESS,
-	POST_UPDATE_REQUEST,
-	POST_UPDATE_FALIED,
-	POST_UPDATE_SUCCESS,
-	SET_POST
-} from './mutantion-types'
 import { createPost, updatePost } from '@/service/postService'
 
 const state = {
@@ -51,7 +42,7 @@ const actions = {
 					commit('POST_UPDATE_SUCCESS', post)
 					resolve(post)
 				})
-				.catch(error => {
+				.catch(() => {
 					commit('POST_UPDATE_REQUEST', false)
 					commit('POST_UPDATE_FALIED')
 					reject()
@@ -67,7 +58,7 @@ const actions = {
 					commit('POST_CREATE_SUCCESS', post)
 					resolve(post)
 				})
-				.catch(error => {
+				.catch(() => {
 					commit('POST_CREATE_REQUEST', false)
 					commit('POST_CREATE_FALIED')
 					reject()

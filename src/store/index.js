@@ -8,9 +8,6 @@ Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
 
-// import VuexActionLogger from "vuex-action-logger";
-// Vue.use(VuexActionLogger(Vuex));
-
 export default new Vuex.Store({
 	modules: {
 		auth,
