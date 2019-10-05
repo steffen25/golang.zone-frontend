@@ -54,9 +54,6 @@ api.interceptors.response.use(
 						setRefreshToken(data.data.refreshToken)
 						setAccessToken(data.data.accessToken)
 					})
-					.catch(error => {
-						console.log(error)
-					})
 			}
 		}
 	}

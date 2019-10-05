@@ -13,7 +13,6 @@
     </div>
     </div>
     <div v-if="posts && posts.length" class="mb-4">
-      <!-- img-src="https://placekitten.com/1000/300" img-alt="Image" img-top -->
             <b-card v-for="post of posts" :key="post.id"
               footer-tag="footer"
               tag="article"
