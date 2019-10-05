@@ -25,7 +25,7 @@
 
 # golang.zone-frontend
 
-Frontend for [golang.zone-frontend](https://golang.zone/)
+Frontend for [https://golang.zone](https://golang.zone/)
 
 Backend for [golang.zone-backend](https://github.com/steffen25/golang.zone)
 
@@ -52,6 +52,10 @@ npm run build --report
 or
 yarn run build --report
 ```
+
+## CI
+
+This project is configured with Github Actions in order to ease the CI process. At this moment we use the default nodejs workflow.
 
 ## Built With
 
