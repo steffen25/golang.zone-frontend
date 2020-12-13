@@ -1,47 +1,22 @@
 <template>
-  <div id="app">
-    <vue-progress-bar></vue-progress-bar>
-    <Headr></Headr>
-    <notifications group="auth" />
-    <notifications group="post" />
-    <notifications group="editor" />
-    <transition name="fade">
-      <router-view/>
-    </transition>
-    <Footr></Footr>
-  </div>
+  <DefaultLayout>
+    <router-view />
+  </DefaultLayout>
 </template>
 
-<script>
-import Headr from './components/layout/Header'
-import Footr from './components/layout/Footer'
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
 
-export default {
-	name: 'App',
-	components: {
-		Headr,
-		Footr
-	}
-}
+import DefaultLayout from "@/views/layouts/DefaultLayout.vue";
+
+@Options({
+  components: {
+    DefaultLayout,
+  },
+})
+
+export default class App extends Vue {}
 </script>
-
-<style>
-.vue-notification {
-  margin-top: 5px;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition-property: opacity;
-  transition-duration: 0.25s;
-}
-
-.fade-enter-active {
-  transition-delay: 0.25s;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
+<style lang="scss">
+  @import './styles/tailwind.scss';
 </style>

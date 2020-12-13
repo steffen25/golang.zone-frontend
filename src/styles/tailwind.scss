@@ -1,0 +1,9 @@
+
+/*! @import */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.router-link-active, .router-link-exact-active {
+  @apply bg-gray-900;
+}
