@@ -9,6 +9,7 @@
     "build:tailwind": "npx tailwindcss-cli@latest build ./src/styles/tailwind.scss -o ./public/css/tailwind.css"
   },
   "dependencies": {
+    "@headlessui/vue": "^0.2.0",
     "@tailwindcss/forms": "^0.2.1",
     "@types/superagent": "^4.1.10",
     "axios": "^0.21.0",
