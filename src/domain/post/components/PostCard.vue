@@ -22,14 +22,14 @@
 </template>
 <script lang="ts">
 /* eslint-disable no-unused-vars */
-import { IPost } from '@/models/post'
+import { Post } from '@/domain/post/models/post.model'
 import { PropType, defineComponent } from 'vue'
 /* eslint-enable no-unused-vars */
 
 export default defineComponent({
   props: {
     post: {
-      type: Object as PropType<IPost>,
+      type: Object as PropType<Post>,
       required: true
     }
   }

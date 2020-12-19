@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import updatePost from "@/components/posts/update";
+import updatePost from "@/domain/shared/components/posts/update";
 
 export default {
   metaInfo: {

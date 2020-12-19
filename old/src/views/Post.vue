@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import showPost from "@/components/posts/show";
+import showPost from "@/domain/shared/components/posts/show";
 
 export default {
   metaInfo: {

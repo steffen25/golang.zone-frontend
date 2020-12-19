@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import showProfile from "@/components/user/show";
+import showProfile from "@/domain/shared/components/user/show";
 
 export default {
   metaInfo: {

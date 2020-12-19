@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import createPost from "@/components/posts/create";
+import createPost from "@/domain/shared/components/posts/create";
 
 export default {
   metaInfo: {

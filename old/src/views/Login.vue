@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import LoginForm from "@/components/auth/loginForm";
+import LoginForm from "@/domain/shared/components/auth/loginForm";
 
 export default {
   metaInfo: {

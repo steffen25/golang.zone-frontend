@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import indexPosts from "@/components/posts/index";
+import indexPosts from "@/domain/shared/components/posts/index";
 
 export default {
   metaInfo: {
