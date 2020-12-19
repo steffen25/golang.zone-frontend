@@ -13,11 +13,11 @@ export const usePostStore = defineStore({
     }),
     getters: {},
     actions: {
-        async fetchPosts() {
+        async fetchPosts(page?: number, perPage?: number) {
             try {
                 this.isLoading = true
 
-                const pagedResult: PagedResult<Post> = await postApi.getPosts()
+                const pagedResult: PagedResult<Post> = await postApi.getPosts(page, perPage)
 
                 this.$patch({
                     posts: pagedResult.items,

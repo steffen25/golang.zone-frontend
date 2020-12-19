@@ -5,7 +5,7 @@
           {{ post.title }}
         </h2>
 
-        <p class="text-sm text-gray-700 px-2" v-html="post.body"></p>
+    <p class="text-sm text-gray-700 px-2" v-html="post.body.substring(0, 200) + '...'"></p>
 
         <div class="flex items-center justify-between mt-2 mx-6">
           <a href="#" class="text-blue-500 text-xs -ml-3 ">Show More</a>
@@ -32,6 +32,6 @@ export default defineComponent({
       type: Object as PropType<Post>,
       required: true
     }
-  }
+  },
 })
 </script>

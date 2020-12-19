@@ -4,8 +4,13 @@ import PagedResult from '@/domain/shared/models/common/PagedResult'
 import { AxiosResponse } from 'axios'
 
 class PostApi {
-    async getPosts(): Promise<PagedResult<Post>> {
-        const response: AxiosResponse = await httpClient.get('posts')
+    async getPosts(page: number = 1, perPage: number = 10): Promise<PagedResult<Post>> {
+        const response: AxiosResponse = await httpClient.get('posts', {
+            params: {
+                page: page,
+                perpage: perPage,
+            }
+        })
 
         return {
             items: response.data.data,
