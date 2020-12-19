@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 import postApi from '@/domain/post/api/v1/post.api'
 import PagedResult from '@/domain/shared/models/common/PagedResult'
-import { Post } from '@/domain/post/models/post.model'
-import { Pagination } from '@/domain/shared/models/common/Pagination'
+import {Post} from '@/domain/post/models/post.model'
+import {Pagination, PerPageOption} from '@/domain/shared/models/common/Pagination'
 
 export const usePostStore = defineStore({
     id: 'post',
@@ -10,6 +10,8 @@ export const usePostStore = defineStore({
         posts: [] as Post[],
         pagination: {} as Pagination,
         isLoading: false as Boolean,
+        perPageOptions: [PerPageOption.Ten, PerPageOption.TwentyFive] as PerPageOption[],
+        selectedPerPageOption: PerPageOption.Ten as PerPageOption
     }),
     getters: {},
     actions: {
@@ -28,6 +30,9 @@ export const usePostStore = defineStore({
             } finally {
                 this.isLoading = false
             }
+        },
+        setSelectedPerPageOption(option: PerPageOption) {
+            this.selectedPerPageOption = option
         }
     },
 })

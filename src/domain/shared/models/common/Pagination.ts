@@ -10,3 +10,8 @@ export interface Pagination {
     to: number,
     total: number,
 }
+
+export enum PerPageOption {
+    Ten = 10,
+    TwentyFive = 25,
+}
