@@ -60,30 +60,21 @@
         </div>
       </section>
 
-      <div v-if="pagination" class="grid grid-cols-3 gap-4">
-        <div class="col-start-2">
-          <button
-              type="button"
-              class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
-              @click="nextPage"
-          >
-            next
+      <div v-if="pagination" class="grid grid-cols-3 gap-4 pb-5">
+        <div class="text-left">
+          <button @click.prevent="previousPage" :disabled="!pagination.prevPageUrl">
+            « Previous
           </button>
         </div>
-        <div>
+        <div class="text-center">
           {{ pagination.currentPage }} of {{ pagination.lastPage }}
         </div>
-        <div class="col-end-2">
-          <button
-              type="button"
-              class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
-              @click="previousPage"
-          >
-            previous
-          </button>
+        <div class="text-right">
+            <button @click.prevent="nextPage" :disabled="!pagination.nextPageUrl">
+              Next »
+            </button>
         </div>
       </div>
-
     </div>
   </main>
 </template>

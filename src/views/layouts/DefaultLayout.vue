@@ -65,8 +65,17 @@
     <main>
       <slot></slot>
     </main>
+
+    <Footer />
   </div>
 </template>
 <script>
-export default {};
+import { defineComponent } from 'vue'
+import Footer from '@/layout/Footer.vue'
+
+export default defineComponent({
+  components: {
+    Footer
+  }
+})
 </script>
