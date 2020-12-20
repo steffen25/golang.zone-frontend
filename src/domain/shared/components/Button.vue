@@ -176,7 +176,7 @@ $text-sizes: sm, md, lg, xl, 2xl;
 
   &-text {
     @apply border-none shadow-none text-black hover:underline;
-    @apply bg-transparent hover:bg-transparent focus:bg-transparent;
+    @apply bg-transparent hover:bg-transparent hover:text-black focus:bg-transparent;
   }
 
   &-block {
