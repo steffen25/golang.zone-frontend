@@ -4,7 +4,7 @@
       class="g-btn"
       :class="[
           variant ? `g-btn-${variant}` : 'g-btn-primary',
-          outlined && `g-btn-outlined`,
+          outlined && `g-btn-${variant}-outlined`,
           size && `g-btn-${size}`,
           rounded && 'rounded-full',
           block && 'g-btn-block',
@@ -78,6 +78,7 @@ export default defineComponent({
           "background": indigo-900,
           "border": indigo-700,
           "hover": indigo-600,
+          "outline": indigo-900,
       ),
       (
           "variant": "secondary",
@@ -85,6 +86,7 @@ export default defineComponent({
           "background": gray-900,
           "border": gray-700,
           "hover": gray-600,
+          "outline": gray-900,
       ),
       (
           "variant": "success",
@@ -92,6 +94,7 @@ export default defineComponent({
           "background": green-500,
           "border": green-900,
           "hover": green-600,
+          "outline": green-500,
       ),
       (
           "variant": "danger",
@@ -99,15 +102,26 @@ export default defineComponent({
           "background": red-500,
           "border": red-900,
           "hover": red-600,
+          "outline": red-500,
       ),
   );
 
-  @mixin button-variant($color, $background, $border, $hover) {
+  @mixin button-variant-outlined($outline, $hover) {
+    @apply bg-opacity-0;
+    @apply hover:bg-#{$hover};
+    @apply #{$outline};
+  }
+
+  @mixin button-variant($color, $background, $border, $hover, $outline) {
     @apply bg-#{$background};
     @apply hover:bg-#{$hover};
     @apply active:bg-#{$border};
     @apply focus:outline-none focus:border-#{$border} focus:ring;
     @apply #{$color};
+
+    &-outlined {
+      @include button-variant-outlined($outline, $hover);
+    }
   }
 
   $text-sizes: sm, md, lg, xl, 2xl;
@@ -136,37 +150,15 @@ export default defineComponent({
       $background: map-get($button-variant, "background");
       $border: map-get($button-variant, "border");
       $hover: map-get($button-variant, "hover");
+      $outline: map-get($button-variant, "outline");
 
       &-#{$variant} {
-        @include button-variant($color, $background, $border, $hover);
+        @include button-variant($color, $background, $border, $hover, $outline);
       }
     }
 
     &-block {
       @apply block w-full;
-    }
-
-    &-primary &-outlined {
-      @apply bg-opacity-0 #{!important};
-      @apply text-indigo-800;
-      @apply hover:bg-indigo-500 hover:text-white hover:border-opacity-100;
-      @apply border border-indigo-500;
-    }
-
-    &-secondary &-outlined {}
-
-    &-success &-outlined {
-      @apply bg-opacity-0;
-      @apply text-green-800;
-      @apply hover:bg-green-500 hover:text-white hover:border-opacity-100;
-      @apply border border-green-500;
-    }
-
-    &-danger &-outlined {
-      @apply bg-opacity-0;
-      @apply text-red-800;
-      @apply hover:bg-red-500 hover:text-white hover:border-opacity-100;
-      @apply border border-red-500;
     }
   }
 </style>
