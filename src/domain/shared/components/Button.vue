@@ -6,7 +6,7 @@
           variant ? `g-btn-${variant}` : 'g-btn-primary',
           outlined && `g-btn-outlined`,
           size && `g-btn-${size}`,
-          rounded && 'rounded',
+          rounded && 'rounded-full',
           block && 'g-btn-block',
       ]"
       :disabled="disabled"
