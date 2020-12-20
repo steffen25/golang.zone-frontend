@@ -71,6 +71,37 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 
+  $button-variants: (
+      (
+          "variant": "primary",
+          "color": text-white,
+          "background": indigo-900,
+          "border": indigo-700,
+          "hover": indigo-600,
+      ),
+      (
+          "variant": "secondary",
+          "color": text-white,
+          "background": gray-900,
+          "border": gray-700,
+          "hover": gray-600,
+      ),
+      (
+          "variant": "success",
+          "color": text-white,
+          "background": green-500,
+          "border": green-900,
+          "hover": green-600,
+      ),
+      (
+          "variant": "danger",
+          "color": text-white,
+          "background": red-500,
+          "border": red-900,
+          "hover": red-600,
+      ),
+  );
+
   @mixin button-variant($color, $background, $border, $hover) {
     @apply bg-#{$background};
     @apply hover:bg-#{$hover};
@@ -99,12 +130,20 @@ export default defineComponent({
       }
     }
 
-    &-block {
-      @apply block w-full;
+    @each $button-variant in $button-variants {
+      $variant: map-get($button-variant, "variant");
+      $color: map-get($button-variant, "color");
+      $background: map-get($button-variant, "background");
+      $border: map-get($button-variant, "border");
+      $hover: map-get($button-variant, "hover");
+
+      &-#{$variant} {
+        @include button-variant($color, $background, $border, $hover);
+      }
     }
 
-    &-primary {
-      @include button-variant(text-white, indigo-900, indigo-700, indigo-600);
+    &-block {
+      @apply block w-full;
     }
 
     &-primary &-outlined {
@@ -114,29 +153,13 @@ export default defineComponent({
       @apply border border-indigo-500;
     }
 
-    &-secondary {
-      @include button-variant(text-white, gray-900, gray-700, gray-900);
-    }
-
     &-secondary &-outlined {}
-
-    &-success {
-      @apply bg-green-500;
-      @apply hover:bg-green-600;
-      @apply active:bg-green-900;
-      @apply focus:outline-none focus:border-green-900 focus:ring;
-      @apply text-white;
-    }
 
     &-success &-outlined {
       @apply bg-opacity-0;
       @apply text-green-800;
       @apply hover:bg-green-500 hover:text-white hover:border-opacity-100;
       @apply border border-green-500;
-    }
-
-    &-danger {
-      @include button-variant(text-white, red-500, red-900, red-600);
     }
 
     &-danger &-outlined {
