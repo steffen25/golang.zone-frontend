@@ -22,6 +22,8 @@ enum Variants {
   Primary = 'primary',
   Secondary = 'secondary',
   Success = 'success',
+  Info = 'info',
+  Warning = 'warning',
   Danger = 'danger',
 }
 
@@ -43,6 +45,8 @@ export default defineComponent({
           Variants.Primary,
           Variants.Secondary,
           Variants.Success,
+          Variants.Info,
+          Variants.Warning,
           Variants.Danger,
       ].includes(value)
     },
@@ -82,9 +86,9 @@ export default defineComponent({
       (
           "variant": "secondary",
           "color": text-white,
-          "background": gray-900,
-          "border": gray-700,
-          "hover": gray-600,
+          "background": gray-600,
+          "border": gray-500,
+          "hover": gray-500,
       ),
       (
           "variant": "success",
@@ -92,6 +96,20 @@ export default defineComponent({
           "background": green-500,
           "border": green-900,
           "hover": green-600,
+      ),
+      (
+          "variant": "info",
+          "color": text-white,
+          "background": blue-500,
+          "border": blue-900,
+          "hover": blue-600,
+      ),
+      (
+          "variant": "warning",
+          "color": text-white,
+          "background": yellow-500,
+          "border": yellow-900,
+          "hover": yellow-600,
       ),
       (
           "variant": "danger",
