@@ -8,6 +8,7 @@
           size && `g-btn-${size}`,
           rounded && 'rounded-full',
           block && 'g-btn-block',
+          text && 'g-btn-text'
       ]"
       :disabled="disabled"
   >
@@ -60,6 +61,7 @@ export default defineComponent({
     disabled: Boolean,
     outlined: Boolean,
     block: Boolean,
+    text: Boolean,
   },
 
   setup() {
@@ -68,6 +70,16 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
+
+  @mixin button-variant($color, $background, $border, $hover) {
+    @apply bg-#{$background};
+    @apply hover:bg-#{$hover};
+    @apply active:bg-#{$border};
+    @apply focus:outline-none focus:border-#{$border} focus:ring;
+    @apply #{$color};
+  }
+
+
   .g-btn {
     @apply inline-flex items-center tracking-widest border;
     @apply px-4 py-2;
@@ -99,11 +111,7 @@ export default defineComponent({
     }
 
     &-primary {
-      @apply bg-indigo-800;
-      @apply hover:bg-indigo-700;
-      @apply active:bg-indigo-900;
-      @apply focus:outline-none focus:border-indigo-900 focus:ring;
-      @apply text-white;
+      @include button-variant(text-white, indigo-900, indigo-700, indigo-600);
     }
 
     &-primary &-outlined {
@@ -114,11 +122,7 @@ export default defineComponent({
     }
 
     &-secondary {
-      @apply bg-gray-800;
-      @apply hover:bg-gray-700;
-      @apply active:bg-gray-900;
-      @apply focus:outline-none focus:border-gray-900 focus:ring;
-      @apply text-white;
+      @include button-variant(text-white, gray-900, gray-700, gray-900);
     }
 
     &-secondary &-outlined {}
@@ -139,11 +143,7 @@ export default defineComponent({
     }
 
     &-danger {
-      @apply bg-red-500;
-      @apply hover:bg-red-600;
-      @apply active:bg-red-900;
-      @apply focus:outline-none focus:border-red-900 focus:ring;
-      @apply text-white;
+      @include button-variant(text-white, red-500, red-900, red-600);
     }
 
     &-danger &-outlined {
