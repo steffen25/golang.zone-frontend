@@ -12,6 +12,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+enum Variants {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Success = 'success',
+  Danger = 'danger',
+}
+
 export default defineComponent({
   name: 'g-button',
 
@@ -19,11 +26,19 @@ export default defineComponent({
     variant: {
       type: String,
       default: 'primary',
-      validator: (value: string) => ['primary', 'secondary', 'success', 'danger'].includes(value)
+      validator: (value: Variants) => [
+          Variants.Primary,
+          Variants.Secondary,
+          Variants.Success,
+          Variants.Danger,
+      ].includes(value)
+    },
+    rounded: {
+      type: Boolean
     },
     type: {
       type: String,
-      default: 'submit',
+      default: 'button',
     },
   },
 
