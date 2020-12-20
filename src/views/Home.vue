@@ -17,6 +17,7 @@
                       :disabled="buttonProp.disabled"
                       :size="buttonProp.size"
                       :block="buttonProp.block"
+                      :text="buttonProp.text"
             >
               {{ buttonVariant }} ({{ buttonProp.size }})
             </g-button>
@@ -39,17 +40,29 @@ export default defineComponent({
   setup() {
     const buttonVariants = [
         'primary',
+        'secondary',
         'success',
+        'info',
+        'warning',
         'danger',
     ];
 
     const buttonProps = [
+      {
+        size: 'sm',
+        outlined: true,
+        rounded: false,
+        disabled: false,
+        block: false,
+        text: true,
+      },
         {
           size: 'sm',
           outlined: true,
           rounded: true,
           disabled: false,
           block: false,
+          text: false,
         },
         {
           size: 'md',
@@ -57,6 +70,7 @@ export default defineComponent({
           rounded: false,
           disabled: false,
           block: false,
+          text: false,
         },
         {
           size: 'lg',
@@ -64,6 +78,7 @@ export default defineComponent({
           rounded: false,
           disabled: false,
           block: false,
+          text: false,
         },
         {
           size: '2xl',
@@ -71,6 +86,7 @@ export default defineComponent({
           rounded: false,
           disabled: false,
           block: false,
+          text: false,
         },
     ]
 
