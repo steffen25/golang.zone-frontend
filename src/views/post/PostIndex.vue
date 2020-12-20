@@ -40,7 +40,7 @@
                   <MenuItem>
                     <a
                         @click="setSelectedPerPage(perPageOption)"
-                        :class="perPageOption === selectedPerPageOptions ? 'bg-gray-100 text-gray-900' : 'text-gray-700'"
+                        :class="perPageOption === selectedPerPageOption ? 'bg-gray-100 text-gray-900' : 'text-gray-700'"
                         class="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
                     >
                       {{ perPageOption }}

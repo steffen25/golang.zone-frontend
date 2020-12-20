@@ -7,10 +7,24 @@
           Home
         </header>
 
+        <div class="p-3">
+          <g-button variant="primary">primary</g-button>
+          <g-button variant="secondary">secondary</g-button>
+          <g-button variant="success">success</g-button>
+          <g-button variant="danger">danger</g-button>
+        </div>
+
       </section>
     </div>
   </main>
 </template>
-<script>
-export default { }
+<script lang="ts">
+import { defineComponent } from 'vue'
+import GButton from '@/domain/shared/components/Button.vue';
+
+export default defineComponent({
+  components: {
+    GButton,
+  }
+})
 </script>
