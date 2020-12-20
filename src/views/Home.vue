@@ -8,10 +8,18 @@
         </header>
 
         <div class="p-3">
-          <g-button variant="primary">primary</g-button>
-          <g-button variant="secondary">secondary</g-button>
-          <g-button variant="success">success</g-button>
-          <g-button variant="danger">danger</g-button>
+          <div v-for="(buttonVariant, index) in buttonVariants" :key="index" class="mb-4">
+            <g-button v-for="buttonProp in buttonProps" :key="buttonProp.size"
+                      class="ml-1"
+                      :variant="buttonVariant"
+                      :outlined="buttonProp.outlined"
+                      :rounded="buttonProp.rounded"
+                      :disabled="buttonProp.disabled"
+                      :size="buttonProp.size"
+            >
+              {{ buttonVariant }} ({{ buttonProp.size }})
+            </g-button>
+          </div>
         </div>
 
       </section>
@@ -25,6 +33,46 @@ import GButton from '@/domain/shared/components/Button.vue';
 export default defineComponent({
   components: {
     GButton,
+  },
+
+  setup() {
+    const buttonVariants = [
+        'primary',
+        'success',
+        'danger',
+    ];
+
+    const buttonProps = [
+        {
+          size: 'sm',
+          outlined: true,
+          rounded: true,
+          disabled: false,
+        },
+        {
+          size: 'md',
+          outlined: false,
+          rounded: false,
+          disabled: false,
+        },
+        {
+          size: 'lg',
+          outlined: false,
+          rounded: false,
+          disabled: false,
+        },
+        {
+          size: '2xl',
+          outlined: false,
+          rounded: false,
+          disabled: false,
+        },
+    ]
+
+    return {
+      buttonVariants,
+      buttonProps
+    }
   }
 })
 </script>
