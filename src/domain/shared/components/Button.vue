@@ -79,6 +79,7 @@ export default defineComponent({
     @apply #{$color};
   }
 
+  $text-sizes: sm, md, lg, xl, 2xl;
 
   .g-btn {
     @apply inline-flex items-center tracking-widest border;
@@ -86,24 +87,16 @@ export default defineComponent({
     @apply transition ease-in-out duration-150;
     @apply font-semibold text-xs;
 
-    &-sm {
-      @apply text-sm #{!important};
-    }
-
-    &-md {
-      @apply text-base #{!important};
-    }
-
-    &-lg {
-      @apply text-lg #{!important};
-    }
-
-    &-xl {
-      @apply text-xl #{!important};
-    }
-
-    &-2xl {
-      @apply text-2xl #{!important};
+    @each $text-size in $text-sizes {
+      @if $text-size == 'md' {
+        &-#{$text-size} {
+          @apply text-base;
+        }
+      } @else {
+        &-#{$text-size} {
+          @apply text-#{$text-size}
+        }
+      }
     }
 
     &-block {
