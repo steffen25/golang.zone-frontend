@@ -21,7 +21,11 @@ module.exports = {
     }
   },
   variants: {
-    extend: {},
+    extend: {
+      textColor: ['visited'],
+      borderColor: ['focus-visible', 'first'],
+      backgroundColor: ['responsive', 'even', 'odd', 'hover', 'focus', 'active'],
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

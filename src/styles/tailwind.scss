@@ -5,17 +5,8 @@
 @import "tailwindcss/components";
 @import "./custom-components.scss";
 
-.g-btn {
-  @apply inline-flex items-center rounded-md tracking-widest px-4 py-2 border transition ease-in-out duration-150
-
-  &--primary {
-    @apply bg-gray-800 font-semibold text-xs text-white uppercase hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray
-  }
-}
-
 @import "tailwindcss/utilities";
 @import "./custom-utilities.scss";
-
 
 .router-link-active, .router-link-exact-active {
   @apply bg-gray-900;
