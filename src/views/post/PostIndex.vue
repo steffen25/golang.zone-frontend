@@ -110,7 +110,7 @@ export default defineComponent({
         ? Number.parseInt(route.query.perPage as string, 10)
         : postStore.selectedPerPageOption)
 
-    postStore.fetchPosts(currentPage.value)
+    postStore.fetchPosts(currentPage.value, selectedPerPageOption.value)
 
     const previousPage = () => {
       if (currentPage.value > 1) {

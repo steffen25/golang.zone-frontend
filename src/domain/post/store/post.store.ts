@@ -2,7 +2,7 @@ import {defineStore} from 'pinia'
 import postApi from '@/domain/post/api/v1/post.api'
 import PagedResult from '@/domain/shared/models/common/PagedResult'
 import {Post} from '@/domain/post/models/post.model'
-import {Pagination, PerPageOption} from '@/domain/shared/models/common/Pagination'
+import {Pagination, PerPageOption, defaultPerPageOptions} from '@/domain/shared/models/common/Pagination'
 
 export const usePostStore = defineStore({
     id: 'post',
@@ -10,7 +10,7 @@ export const usePostStore = defineStore({
         posts: [] as Post[],
         pagination: {} as Pagination,
         isLoading: false as Boolean,
-        perPageOptions: [PerPageOption.Ten, PerPageOption.TwentyFive] as PerPageOption[],
+        perPageOptions: defaultPerPageOptions as Array<PerPageOption>,
         selectedPerPageOption: PerPageOption.Ten as PerPageOption
     }),
     getters: {},
