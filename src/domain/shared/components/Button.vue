@@ -7,6 +7,7 @@
           outlined && `g-btn-outlined`,
           size && `g-btn-${size}`,
           rounded && 'rounded',
+          block && 'g-btn-block',
       ]"
       :disabled="disabled"
   >
@@ -58,6 +59,7 @@ export default defineComponent({
     rounded: Boolean,
     disabled: Boolean,
     outlined: Boolean,
+    block: Boolean,
   },
 
   setup() {
@@ -90,6 +92,10 @@ export default defineComponent({
 
     &-2xl {
       @apply text-2xl #{!important};
+    }
+
+    &-block {
+      @apply block w-full;
     }
 
     &-primary {

@@ -16,6 +16,7 @@
                       :rounded="buttonProp.rounded"
                       :disabled="buttonProp.disabled"
                       :size="buttonProp.size"
+                      :block="buttonProp.block"
             >
               {{ buttonVariant }} ({{ buttonProp.size }})
             </g-button>
@@ -48,24 +49,28 @@ export default defineComponent({
           outlined: true,
           rounded: true,
           disabled: false,
+          block: false,
         },
         {
           size: 'md',
           outlined: false,
           rounded: false,
           disabled: false,
+          block: false,
         },
         {
           size: 'lg',
           outlined: false,
           rounded: false,
           disabled: false,
+          block: false,
         },
         {
           size: '2xl',
           outlined: false,
           rounded: false,
           disabled: false,
+          block: false,
         },
     ]
 
