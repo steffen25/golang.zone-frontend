@@ -79,7 +79,7 @@ $button-variants: (
         "background": indigo-900,
         "border": indigo-700,
         "hover": indigo-600,
-        "outline": text-indigo-900,
+        "outline": indigo-900,
     ),
     (
         "variant": "secondary",
@@ -87,7 +87,7 @@ $button-variants: (
         "background": gray-900,
         "border": gray-700,
         "hover": gray-600,
-        "outline": text-gray-900,
+        "outline": gray-900,
     ),
     (
         "variant": "success",
@@ -95,7 +95,7 @@ $button-variants: (
         "background": green-500,
         "border": green-900,
         "hover": green-600,
-        "outline": text-green-500,
+        "outline": green-500,
     ),
     (
         "variant": "info",
@@ -103,7 +103,7 @@ $button-variants: (
         "background": blue-500,
         "border": blue-900,
         "hover": blue-600,
-        "outline": text-blue-500,
+        "outline": blue-500,
     ),
     (
         "variant": "warning",
@@ -111,7 +111,7 @@ $button-variants: (
         "background": yellow-500,
         "border": yellow-900,
         "hover": yellow-600,
-        "outline": text-yellow-500,
+        "outline": yellow-500,
     ),
     (
         "variant": "danger",
@@ -119,14 +119,15 @@ $button-variants: (
         "background": red-500,
         "border": red-900,
         "hover": red-600,
-        "outline": text-red-500,
+        "outline": red-500,
     )
 );
 
 @mixin button-variant-outlined($outline, $color, $hover) {
   @apply bg-opacity-0;
-  @apply hover:bg-#{$hover} hover:#{$color};
-  @apply #{$outline};
+  @apply hover:bg-#{$hover} hover:#{$color} hover:border-#{$hover};
+  @apply text-#{$outline};
+  @apply border-#{$outline};
 }
 
 @mixin button-variant($color, $background, $border, $hover, $outline) {
