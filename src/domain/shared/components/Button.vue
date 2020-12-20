@@ -78,7 +78,7 @@ export default defineComponent({
           "background": indigo-900,
           "border": indigo-700,
           "hover": indigo-600,
-          "outline": indigo-900,
+          "outline": text-indigo-900,
       ),
       (
           "variant": "secondary",
@@ -86,7 +86,7 @@ export default defineComponent({
           "background": gray-900,
           "border": gray-700,
           "hover": gray-600,
-          "outline": gray-900,
+          "outline": text-gray-900,
       ),
       (
           "variant": "success",
@@ -94,7 +94,7 @@ export default defineComponent({
           "background": green-500,
           "border": green-900,
           "hover": green-600,
-          "outline": green-500,
+          "outline": text-green-500,
       ),
       (
           "variant": "danger",
@@ -102,13 +102,13 @@ export default defineComponent({
           "background": red-500,
           "border": red-900,
           "hover": red-600,
-          "outline": red-500,
+          "outline": text-red-500,
       ),
   );
 
-  @mixin button-variant-outlined($outline, $hover) {
+  @mixin button-variant-outlined($outline, $color, $hover) {
     @apply bg-opacity-0;
-    @apply hover:bg-#{$hover};
+    @apply hover:bg-#{$hover} hover:#{$color};
     @apply #{$outline};
   }
 
@@ -120,7 +120,7 @@ export default defineComponent({
     @apply #{$color};
 
     &-outlined {
-      @include button-variant-outlined($outline, $hover);
+      @include button-variant-outlined($outline, $color, $hover);
     }
   }
 
