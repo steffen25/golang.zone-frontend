@@ -142,6 +142,11 @@ export default defineComponent({
       }
     }
 
+    &-text {
+      @apply border-none shadow-none text-black hover:underline;
+      @apply bg-transparent hover:bg-transparent focus:bg-transparent;
+    }
+
     &-block {
       @apply block w-full;
     }
