@@ -30,7 +30,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import GButton from '@/domain/shared/components/button/Button.vue';
+import GButton from '@/modules/shared/components/button/Button.vue';
 
 export default defineComponent({
   components: {

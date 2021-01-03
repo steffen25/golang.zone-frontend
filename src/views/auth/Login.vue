@@ -39,10 +39,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'
-import AppLayout from '@/domain/shared/components/layout/AppLayout.vue'
-import TextInput from '@/domain/shared/components/input/TextInput.vue'
-import GButton from '@/domain/shared/components/button/Button.vue'
-import { useAuthStore } from '@/domain/user/store/auth.store'
+import AppLayout from '@/modules/shared/components/layout/AppLayout.vue'
+import TextInput from '@/modules/shared/components/input/TextInput.vue'
+import GButton from '@/modules/shared/components/button/Button.vue'
+import { useAuthStore } from '@/modules/user/store/auth.store'
 
 type LoginForm = {
   email: string

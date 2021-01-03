@@ -81,11 +81,11 @@
 <script lang="ts">
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { defineComponent, computed } from 'vue'
-import PostCard from '@/domain/post/components/PostCard.vue'
-import { usePostStore } from "@/domain/post/store/post.store";
+import PostCard from '@/modules/post/components/PostCard.vue'
+import { usePostStore } from '@/modules/post/store/post.store'
 import { useRoute, useRouter } from 'vue-router'
 // eslint-disable-next-line no-unused-vars
-import {PerPageOption} from "@/domain/shared/models/common/Pagination";
+import { PerPageOption } from '@/modules/shared/models/common/Pagination'
 
 export default defineComponent({
   components: {
