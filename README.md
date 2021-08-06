@@ -1,74 +1,46 @@
-<p align="center">
-    <img src="logo.png" height="130">
-</p>
+# Getting Started with Create React App
 
-<p align="center">
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-  <a href="https://github.com/steffen25/golang.zone-frontend/issues">
-  	<img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"
-  alt="">
-  </a>
+## Available Scripts
 
-  <a href="http://nodejs.org/download/">
-  	<img src="https://img.shields.io/node/v/vuejs.svg?style=flat" alt="">
-  </a>
+In the project directory, you can run:
 
-  <a href="https://golang.zone">
-    <img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=golang.zone" >
-  </a>
+### `yarn start`
 
-  <a href="LICENSE.md">
-  <img src="https://badges.frapsoft.com/os/mit/mit.svg?v=102" alt=""></a>
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-</p>
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
+### `yarn test`
 
-# golang.zone-frontend
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Frontend for [https://golang.zone](https://golang.zone/)
+### `yarn build`
 
-Backend for [golang.zone-backend](https://github.com/steffen25/golang.zone)
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Build Setup
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-``` bash
-# install dependencies
-npm install
-or
-yarn install
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-# serve with hot reload at localhost:8080
-npm run dev
-or
-yarn run dev
+### `yarn eject`
 
-# build for production with minification
-npm run build
-or
-yarn run build
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-# build for production and view the bundle analyzer report
-npm run build --report
-or
-yarn run build --report
-```
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## CI
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-This project is configured with Github Actions in order to ease the CI process. At this moment we use the default nodejs workflow.
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Built With
+## Learn More
 
-* [VueJS](https://vuejs.org/) - The frontend framework used
-* [Webpack](https://webpack.js.org/) - Bundling tool
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## Authors
-
-* **Robert Hansen** - [Robert-Hansen](https://github.com/Robert-Hansen)
-* **Steffen** - [Steffen25](https://github.com/steffen25)
-
-See also the list of [contributors](https://github.com/steffen25/golang.zone-frontend/graphs/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+To learn React, check out the [React documentation](https://reactjs.org/).
