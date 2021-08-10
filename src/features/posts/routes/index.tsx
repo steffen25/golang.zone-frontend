@@ -3,10 +3,10 @@ import { Post } from './Post';
 import { Posts } from './Posts';
 
 export const PostsRoutes = () => {
-    return (
-        <Routes>
-            <Route path="" element={<Posts />} />
-            <Route path=":postId" element={<Post />} />
-        </Routes>
-    );
+  return (
+    <Routes>
+      <Route path="/" element={<Posts />} />
+      <Route path=":postId" element={<Post />} />
+    </Routes>
+  );
 };

@@ -4,11 +4,11 @@ import { Layout } from '../components/Layout';
 import { LoginForm } from '../components/LoginForm';
 
 export const Login = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    return (
-        <Layout title="Log in to your account">
-            <LoginForm onSuccess={() => navigate('/')} />
-        </Layout>
-    );
+  return (
+    <Layout title="Log in to your account">
+      <LoginForm onSuccess={() => navigate('/')} />
+    </Layout>
+  );
 };

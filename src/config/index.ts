@@ -1,10 +1,9 @@
-
 export type Config = {
-    apiUrl: string;
-}
+  apiUrl: string;
+};
 
 const config = {
-    apiUrl: process.env.REACT_APP_API_URL,
+  apiUrl: process.env.REACT_APP_API_URL,
 } as Config;
 
 export default config;

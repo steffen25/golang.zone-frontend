@@ -3,11 +3,11 @@ import { Layout } from '../components/Layout';
 import { RegisterForm } from '../components/RegisterForm';
 
 export const Register = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    return (
-        <Layout title="Register your account">
-            <RegisterForm onSuccess={() => navigate('/')} />
-        </Layout>
-    );
+  return (
+    <Layout title="Register your account">
+      <RegisterForm onSuccess={() => navigate('/')} />
+    </Layout>
+  );
 };

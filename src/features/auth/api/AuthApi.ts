@@ -1,31 +1,31 @@
-import { axios } from '@/lib/axios';
+import { axios } from '@/lib/Axios';
 import {
-    AuthUser,
-    LoginCredentials,
-    RegisterCredentials,
-    UserResponse
-} from "@/features/auth/types";
+  AuthUser,
+  LoginCredentials,
+  RegisterCredentials,
+  UserResponse,
+} from '@/features/auth/types';
 
 export const login = async (data: LoginCredentials): Promise<UserResponse> => {
-    const { data: response } = await axios.post('/auth/login', data);
+  const { data: response } = await axios.post('/auth/login', data);
 
-    return response;
+  return response;
 };
 
 export const register = async (data: RegisterCredentials): Promise<UserResponse> => {
-    const { data: response } = await axios.post('/auth/register', data);
+  const { data: response } = await axios.post('/auth/register', data);
 
-    return response;
+  return response;
 };
 
 export const logout = async (): Promise<unknown> => {
-    const { data: response } = await axios.get('/auth/logout');
+  const { data: response } = await axios.get('/auth/logout');
 
-    return response;
-}
+  return response;
+};
 
 export const getUserProfile = async (): Promise<AuthUser> => {
-    const { data: response } = await axios.get('/auth/me');
+  const { data: response } = await axios.get('/auth/me');
 
-    return response;
+  return response;
 };

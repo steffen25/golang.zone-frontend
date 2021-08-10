@@ -1,53 +1,53 @@
 import { BaseEntity, Pagination } from '@/types';
 
 export type Post = {
-    id: string;
-    userId: string;
-    author: string;
-    title: string;
-    slug: string;
-    body: string;
+  id: string;
+  userId: string;
+  author: string;
+  title: string;
+  slug: string;
+  body: string;
 } & BaseEntity;
 
 export type PostsResponse = {
-    data: Post[],
-    pagination: Pagination,
-    success: boolean;
-}
+  data: Post[];
+  pagination: Pagination;
+  success: boolean;
+};
 
 export type PagedPosts = {
-    posts: Post[],
-    pagination: Pagination
-}
+  posts: Post[];
+  pagination: Pagination;
+};
 
 export type PostBody = {
-    title: string;
-    body: string;
+  title: string;
+  body: string;
 };
 
 export type CreatePostOptions = {
-    data: PostBody;
+  data: PostBody;
 };
 
 export type UpdatePostOptions = {
-    data: PostBody;
-    postId: string;
+  data: PostBody;
+  postId: string;
 };
 
 export type GetPostsOptions = {
-    page?: number;
-    perPage?: number;
+  page?: number;
+  perPage?: number;
 };
 
 export type GetPostOptions = {
-    postId: string;
+  postId: string;
 };
 
 export type PostValues = {
-    title: string;
-    body: string;
+  title: string;
+  body: string;
 };
 
 export type UpdatePostProps = {
-    postId: string;
+  postId: string;
 };

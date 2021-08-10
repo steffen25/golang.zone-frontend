@@ -1,40 +1,40 @@
 import { useMutation } from 'react-query';
-import {Notification, useNotificationStore} from '@/hooks/useNotificationStore';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { Notification, useNotificationStore } from '@/hooks/useNotificationStore';
+import { MutationConfig, queryClient } from '@/lib/ReactQuery';
 import { createPost } from '../api';
 import { Post } from '../types';
 
 type UseCreatePostOptions = {
-    config?: MutationConfig<typeof createPost>;
+  config?: MutationConfig<typeof createPost>;
 };
 
 export const useCreatePost = ({ config }: UseCreatePostOptions = {}) => {
-    const { addNotification } = useNotificationStore();
+  const { addNotification } = useNotificationStore();
 
-    return useMutation({
-        onMutate: async (newPost) => {
-            await queryClient.cancelQueries('posts');
+  return useMutation({
+    onMutate: async (newPost) => {
+      await queryClient.cancelQueries('posts');
 
-            const previousPosts = queryClient.getQueryData<Post[]>('posts');
+      const previousPosts = queryClient.getQueryData<Post[]>('posts');
 
-            queryClient.setQueryData('posts', [...(previousPosts || []), newPost.data]);
+      queryClient.setQueryData('posts', [...(previousPosts || []), newPost.data]);
 
-            return { previousPosts };
-        },
-        onError: (_, __, context: any) => {
-            if (context?.previousPosts) {
-                queryClient.setQueryData('posts', context.previousPosts);
-            }
-        },
-        onSuccess: async () => {
-            await queryClient.invalidateQueries('posts');
+      return { previousPosts };
+    },
+    onError: (_, __, context: any) => {
+      if (context?.previousPosts) {
+        queryClient.setQueryData('posts', context.previousPosts);
+      }
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('posts');
 
-            addNotification({
-                type: 'success',
-                title: 'Post Created',
-            } as Notification);
-        },
-        ...config,
-        mutationFn: createPost,
-    });
+      addNotification({
+        type: 'success',
+        title: 'Post Created',
+      } as Notification);
+    },
+    ...config,
+    mutationFn: createPost,
+  });
 };

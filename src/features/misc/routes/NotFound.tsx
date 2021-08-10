@@ -1,3 +1,3 @@
 export const NotFound = () => {
-    return <div>404</div>;
+  return <div>404</div>;
 };
